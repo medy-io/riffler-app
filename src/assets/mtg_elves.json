@@ -1,0 +1,302 @@
+[
+    {
+        "name": "Glimpse of Nature",
+        "type": 2,
+        "image": "./assets/card_images/glimpse_of_nature.jpg"
+    },
+    {
+        "name": "Glimpse of Nature",
+        "type": 2,
+        "image": "./assets/card_images/glimpse_of_nature.jpg"
+    },
+    {
+        "name": "Glimpse of Nature",
+        "type": 2,
+        "image": "./assets/card_images/glimpse_of_nature.jpg"
+    },
+    {
+        "name": "Glimpse of Nature",
+        "type": 2,
+        "image": "./assets/card_images/glimpse_of_nature.jpg"
+    },
+    {
+        "name": "Green Sun's Zenith",
+        "type": 2,
+        "image": "./assets/card_images/green_suns_zenith.jpg"
+    },
+    {
+        "name": "Green Sun's Zenith",
+        "type": 2,
+        "image": "./assets/card_images/green_suns_zenith.jpg"
+    },
+    {
+        "name": "Green Sun's Zenith",
+        "type": 2,
+        "image": "./assets/card_images/green_suns_zenith.jpg"
+    },
+    {
+        "name": "Green Sun's Zenith",
+        "type": 2,
+        "image": "./assets/card_images/green_suns_zenith.jpg"
+    },
+    {
+        "name": "Natural Order",
+        "type": 2,
+        "image": "./assets/card_images/natural_order.jpg"
+    },
+    {
+        "name": "Natural Order",
+        "type": 2,
+        "image": "./assets/card_images/natural_order.jpg"
+    },
+    {
+        "name": "Natural Order",
+        "type": 2,
+        "image": "./assets/card_images/natural_order.jpg"
+    },
+    {
+        "name": "Nissa, Vital Force",
+        "type": 3,
+        "image": "./assets/card_images/nissa_vital_force.png"
+    },
+    {
+        "name": "Deathrite Shaman",
+        "type": 1,
+        "image": "./assets/card_images/deathrite_shaman.png"
+    },
+    {
+        "name": "Deathrite Shaman",
+        "type": 1,
+        "image": "./assets/card_images/deathrite_shaman.png"
+    },
+    {
+        "name": "Deathrite Shaman",
+        "type": 1,
+        "image": "./assets/card_images/deathrite_shaman.png"
+    },
+    {
+        "name": "Deathrite Shaman",
+        "type": 1,
+        "image": "./assets/card_images/deathrite_shaman.png"
+    },
+    {
+        "name": "Nettle Sentinel",
+        "type": 1,
+        "image": "./assets/card_images/nettle_sentinel.jpg"
+    },
+    {
+        "name": "Nettle Sentinel",
+        "type": 1,
+        "image": "./assets/card_images/nettle_sentinel.jpg"
+    },
+    {
+        "name": "Nettle Sentinel",
+        "type": 1,
+        "image": "./assets/card_images/nettle_sentinel.jpg"
+    },
+    {
+        "name": "Heritage Druid",
+        "type": 1,
+        "image": "./assets/card_images/heritage_druid.jpg"
+    },
+    {
+        "name": "Heritage Druid",
+        "type": 1,
+        "image": "./assets/card_images/heritage_druid.jpg"
+    },
+    {
+        "name": "Heritage Druid",
+        "type": 1,
+        "image": "./assets/card_images/heritage_druid.jpg"
+    },
+    {
+        "name": "Heritage Druid",
+        "type": 1,
+        "image": "./assets/card_images/heritage_druid.jpg"
+    },
+    {
+        "name": "Quirion Ranger",
+        "type": 1,
+        "image": "./assets/card_images/quirion_ranger.jpg"
+    },
+    {
+        "name": "Quirion Ranger",
+        "type": 1,
+        "image": "./assets/card_images/quirion_ranger.jpg"
+    },
+    {
+        "name": "Quirion Ranger",
+        "type": 1,
+        "image": "./assets/card_images/quirion_ranger.jpg"
+    },
+    {
+        "name": "Quirion Ranger",
+        "type": 1,
+        "image": "./assets/card_images/quirion_ranger.jpg"
+    },
+    {
+        "name": "Elvish Visionary",
+        "type": 1,
+        "image": "./assets/card_images/elvish_visionary.jpg"
+    },
+    {
+        "name": "Elvish Visionary",
+        "type": 1,
+        "image": "./assets/card_images/elvish_visionary.jpg"
+    },
+    {
+        "name": "Elvish Visionary",
+        "type": 1,
+        "image": "./assets/card_images/elvish_visionary.jpg"
+    },
+    {
+        "name": "Elvish Visionary",
+        "type": 1,
+        "image": "./assets/card_images/elvish_visionary.jpg"
+    },
+    {
+        "name": "Wirewood Symbiote",
+        "type": 1,
+        "image": "./assets/card_images/wirewood_symbiote.jpg"
+    },
+    {
+        "name": "Wirewood Symbiote",
+        "type": 1,
+        "image": "./assets/card_images/wirewood_symbiote.jpg"
+    },
+    {
+        "name": "Wirewood Symbiote",
+        "type": 1,
+        "image": "./assets/card_images/wirewood_symbiote.jpg"
+    },
+    {
+        "name": "Wirewood Symbiote",
+        "type": 1,
+        "image": "./assets/card_images/wirewood_symbiote.jpg"
+    },
+    {
+        "name": "Llanowar Elves",
+        "type": 1,
+        "image": "./assets/card_images/llanowar_elves.jpg"
+    },
+    {
+        "name": "Craterhoof Behemoth",
+        "type": 1,
+        "image": "./assets/card_images/craterhoof_behemoth.jpg"
+    },
+    {
+        "name": "Craterhoof Behemoth",
+        "type": 1,
+        "image": "./assets/card_images/craterhoof_behemoth.jpg"
+    },
+    {
+        "name": "Reclmation Sage",
+        "type": 1,
+        "image": "./assets/card_images/reclamation_sage.png"
+    },
+    {
+        "name": "Birchlore Rangers",
+        "type": 1,
+        "image": "./assets/card_images/birchlore_rangers.jpg"
+    },
+    {
+        "name": "Dryad Arbor",
+        "type": 1,
+        "image": "./assets/card_images/dryad_arbor.jpg"
+    },
+    {
+        "name": "Dryad Arbor",
+        "type": 1,
+        "image": "./assets/card_images/dryad_arbor.jpg"
+    },
+    {
+        "name": "Bayou",
+        "type": 0,
+        "image": "./assets/card_images/bayou.jpg"
+    },
+    {
+        "name": "Bayou",
+        "type": 0,
+        "image": "./assets/card_images/bayou.jpg"
+    },
+    {
+        "name": "Forest",
+        "type": 0,
+        "image": "./assets/card_images/forest.jpg"
+    },
+    {
+        "name": "Forest",
+        "type": 0,
+        "image": "./assets/card_images/forest.jpg"
+    },
+    {
+        "name": "Cavern of Souls",
+        "type": 0,
+        "image": "./assets/card_images/cavern_of_souls.jpg"
+    },
+    {
+        "name": "Pendelhaven",
+        "type": 0,
+        "image": "./assets/card_images/pendelhaven.jpg"
+    },
+    {
+        "name": "Gaea's Cradle",
+        "type": 0,
+        "image": "./assets/card_images/gaeas_cradle.jpg"
+    },
+    {
+        "name": "Gaea's Cradle",
+        "type": 0,
+        "image": "./assets/card_images/gaeas_cradle.jpg"
+    },
+    {
+        "name": "Gaea's Cradle",
+        "type": 0,
+        "image": "./assets/card_images/gaeas_cradle.jpg"
+    },
+        {
+        "name": "Gaea's Cradle",
+        "type": 0,
+        "image": "./assets/card_images/gaeas_cradle.jpg"
+    },
+    {
+        "name": "Wooded Foothills",
+        "type": 0,
+        "image": "./assets/card_images/wooded_foothills.jpg"
+    },
+    {
+        "name": "Wooded Foothills",
+        "type": 0,
+        "image": "./assets/card_images/wooded_foothills.jpg"
+    },
+    {
+        "name": "Wooded Foothills",
+        "type": 0,
+        "image": "./assets/card_images/wooded_foothills.jpg"
+    },
+    {
+        "name": "Wooded Foothills",
+        "type": 0,
+        "image": "./assets/card_images/wooded_foothills.jpg"
+    },
+    {
+        "name": "Verdant Catacombs",
+        "type": 0,
+        "image": "./assets/card_images/verdant_catacombs.jpg"
+    },
+    {
+        "name": "Verdant Catacombs",
+        "type": 0,
+        "image": "./assets/card_images/verdant_catacombs.jpg"
+    },
+    {
+        "name": "Verdant Catacombs",
+        "type": 0,
+        "image": "./assets/card_images/verdant_catacombs.jpg"
+    },
+    {
+        "name": "Verdant Catacombs",
+        "type": 0,
+        "image": "./assets/card_images/verdant_catacombs.jpg"
+    }
+]

@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+/* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0px;
+}
+
+.app-wrapper {
+    margin: 12px;
+}
+
+.hand-card-img {
+    width: 125px;
+}
+
+.card-name {
+    font-family: Roboto;
+    font-weight: 400;
+    
+    src: url('https://fonts.googleapis.com/css?family=Roboto');
+}
+
+.border-thing {
+    margin: 10px;
+}
+
+.hand-row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.button-row {
+    margin-bottom: 10px;
+}
+
+.img-bg {
+    width: 100%;
+    /*background-color: #80c49f;*/
+}
+
+.section-headers {
+    font-family: Roboto;
+    font-weight: 800;
+    src: url('https://fonts.googleapis.com/css?family=Roboto');
+}
+
+.card-card {
+    /*float: left;*/
+    width: 160px;
+    margin: 10px;
+    /*margin-right: 10px;
+    margin-left: 10px;*/
+    /*background-color: #c4dac3;*/
+}
+
+.creature {
+    background-color: lightgreen;
+}
+
+.sorcery {
+    background-color: lightsalmon;
+}
+
+.land {
+    background-color: lightslategrey;
+}
+
+.hand {
+    background-color: gold;
+}
+
+.planeswalker {
+    background-color: lightblue;
+}
+
+.toolbar {
+    background-color: #a4a4a4;
+}
+
+.toolbar-text {
+    color: black;
+    font-size: 18px;
+    font-family: Roboto;
+    font-weight: 800;
+    src: url('https://fonts.googleapis.com/css?family=Roboto');
+}
+
+.forest_logo { 
+    margin: 10px;
+}
