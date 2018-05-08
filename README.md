@@ -3,6 +3,24 @@ Mtg deck simulator
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.1.
 
+# Changing Decks
+
+To change decks edit this folder: 'mtg-app/src/assets/mtg_elves.json'
+Change the card names to be what you want.
+
+To get card images to appear copy the images from 'The Gatherer' and drag them to this folder: 'mtg-app/src/assets/card_images/'
+and point the card image path to there respective card object under 'mtg-app/src/assets/mtg_elves.json'
+
+Card Types:
+
+ "type": 0 = Land
+ "type": 1 = Creature
+ "type": 2 = Sorcery
+ "type": 3 = Planeswalker
+ "type": 4 = Instant
+ "type": 5 = Artifact
+ "type": 6 = Enchantment
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
