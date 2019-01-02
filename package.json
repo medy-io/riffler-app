@@ -1,6 +1,7 @@
 {
-  "name": "mtg-monte-carlo-sim",
-  "version": "0.0.0",
+  "name": "mtg-decks-sim",
+  "author": "chris medykiewicz",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
