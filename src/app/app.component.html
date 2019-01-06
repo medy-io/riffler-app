@@ -1,40 +1,55 @@
 <mat-toolbar class="toolbar">
-  <div class="fas fa-pen-square"></div>
-  <!-- <img class="forest_logo" width="35" src="./assets/forest_symbol.png"> -->
+  <img src="./assets/logo.png" height="25" width="25">
   <h3 class="toolbar-text">{{title}}</h3>
+  <button class="menu-button" mat-button [matMenuTriggerFor]="menu">Menu</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>Item 1</button>
+    <button mat-menu-item>Item 2</button>
+  </mat-menu>
 </mat-toolbar>
+
+<header class="app-header">
+  <div>
+    <h1>Welcome to Riffler!</h1>
+    <h4>An app for deck builders!</h4>
+    <button type="button" class="btn btn-outline-primary header-btn">Get Started</button>
+  </div>
+</header>
+
 <div class="app-wrapper">
 
-  <div>
-    <!--<button (click)="runAHundredThousandTimes()">Draw 100000 Hands</button>
-    <h4>Per 100000 hands this many will have lands that aren't Gaea's Cradle or Dryad Arbor: {{landInHand.length}}</h4>-->
+  <h2>Type deck list below...</h2>
+  <div class="deck-list-container">
+    <form class="deck-form">
+      <mat-form-field>
+        <textarea type="text" name="deck-list" class="deck-list" matInput placeholder="1 Cancel" [(ngModel)]="deckDataInput"></textarea>
+      </mat-form-field>
+    </form>
+  </div>
+  <button mat-button (click)="getDeckData()">Submit</button>
+
+  <!-- <div>
     <div class="button-row">
-      <button _ngcontent-c38="" mat-raised-button="" class="mat-raised-button" (click)="resetSim()">
+      <button mat-raised-button="" class="mat-raised-button" (click)="resetSim()">
         <span class="mat-button-wrapper">Reset</span>
-        <!-- <div class="mat-button-ripple mat-ripple" matripple=""></div>
-        <div class="mat-button-focus-overlay"></div> -->
       </button>
 
-      <button _ngcontent-c38="" mat-raised-button="" class="mat-raised-button" (click)="drawOpeningHand()">
+      <button mat-raised-button="" class="mat-raised-button" (click)="drawOpeningHand()">
         <span class="mat-button-wrapper">Draw Opening Hand</span>
-        <!-- <div class="mat-button-ripple mat-ripple" matripple=""></div>
-        <div class="mat-button-focus-overlay"></div> -->
       </button>
 
-      <button _ngcontent-c38="" mat-raised-button="" class="mat-raised-button" (click)="mulligan()">
+      <button mat-raised-button="" class="mat-raised-button" (click)="mulligan()">
         <span class="mat-button-wrapper">Mulligan</span>
-        <!-- <div class="mat-button-ripple mat-ripple" matripple=""></div>
-        <div class="mat-button-focus-overlay"></div> -->
       </button>
 
-      <button _ngcontent-c38="" mat-raised-button="" class="mat-raised-button" (click)="drawCard()">
+      <button mat-raised-button="" class="mat-raised-button" (click)="drawCard()">
         <span class="mat-button-wrapper">Draw a Card</span>
-        <!-- <div class="mat-button-ripple mat-ripple" matripple=""></div>
-        <div class="mat-button-focus-overlay"></div> -->
       </button>
     </div>
 
     <h2 class="section-headers">Hand: {{mtgHand.length}}</h2>
+    <h3 *ngFor="let prob of probabilityResults">{{probabilityResults}}</h3>
+    <h3 *ngFor="let prob of drawResults">{{drawResults}}</h3>
     <div class="hand-row">
       <mat-card class="card-card" *ngFor="let hand of mtgHand">
         <mat-card-title class="card-name">
@@ -55,15 +70,14 @@
       </mat-card>
     </div>
 
-
     <h2 class="section-headers">Deck List: {{mtgDeck.length}}</h2>
     <div class="hand-row">
       <mat-card class="card-card" *ngFor="let deck of mtgDeck">
         <mat-card-title class="card-name">
           {{deck.name}}
         </mat-card-title>
-        <img mat-card-image class="hand-card-img" src={{deck.image}}>
+        <img mat-card-image class="hand-card-img" src={{deck.imageUrl}}>
       </mat-card>
     </div>
-  </div>
+  </div> -->
 </div>
