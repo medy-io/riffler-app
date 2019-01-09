@@ -1,12 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "mtg-monte-carlo-sim"
+    "name": "PROJECT_NAME"
   },
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "src/dist",
       "assets": [
         "assets",
         "favicon.ico"

@@ -1,114 +1,111 @@
-import { Component, OnInit } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Component } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AppService } from './app.service';
-import { Card } from './app.model';
+import { HyperGeometricCalcService } from './hyper-geometric-calc.service';
+import { Card, DeckProbabilityContext, CardsResponse, CardItem, CardObject } from './app.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
-  title = 'MTG Deck Edit';
+export class AppComponent {
+  title = 'Riffler';
   // drawn cards list
-  mtgDrawnCards: Card[] = [];
+  mtgDrawnCards: any[] = [];
   // deck list
-  mtgDeck: Card[] = [];
+  // testtestMtgDeck: Card[] = [];
   // opening hand
-  mtgHand: Card[] = [];
+  mtgHand: any = [];
+  testMtgDeck: CardObject[] = [];
   // default mulligan number
-  mull = 6;
+  mull: number = 6;
   // experiment deck
   controlDeck: Card[] = [];
   // experiment hand
   controlHand: Card[] = [];
+  deckList: string;
+  textPlaceHolder: string = `1 Cancel \n 1 Ponder \n 1 Unsummon`;
+  deckDataInput: string = '';
+  loadingData: boolean = false;
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService,
+    private hyperGeometricCalcService: HyperGeometricCalcService) { }
 
-  ngOnInit() {
-    // retrieve JSON data and store as mtgDeck
-    this.appService.getDeckData().subscribe(deckDataResponse => {
-      this.mtgDeck = deckDataResponse;
+  getDeckData() {
+    this.loadingData = true;
+    this.appService.getDeckData(this.deckDataInput).subscribe(resp => {
+      console.log(resp.data);
+      this.testMtgDeck = resp.data;
     });
   }
 
   // draw your opening hand
-  public drawOpeningHand() {
+  public drawOpeningHand(): void {
     this.resetSim();
     if (this.mtgHand && this.mtgHand.length > 0) {
       for (let i = 0; i < 7; i++) {
         const card = this.mtgHand.shift();
-        this.mtgDeck.push(card);
+        this.testMtgDeck.push(card);
       }
       for (let i = 0; i < 7; i++) {
-        const index = (Math.floor(Math.random() * this.mtgDeck.length));
-        const card = this.mtgDeck.splice((Math.floor(Math.random() * this.mtgDeck.length)), 1);
+        const index = (Math.floor(Math.random() * this.testMtgDeck.length));
+        const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
         this.mtgHand.push(card[0]);
       }
     } else {
       for (let i = 0; i < 7; i++) {
-        const index = (Math.floor(Math.random() * this.mtgDeck.length));
-        const card = this.mtgDeck.splice((Math.floor(Math.random() * this.mtgDeck.length)), 1);
+        const index = (Math.floor(Math.random() * this.testMtgDeck.length));
+        const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
         this.mtgHand.push(card[0]);
       }
     }
   }
 
   // clear opening hand and drawn cards
-  public resetSim() {
+  public resetSim(): void {
     if (this.mtgDrawnCards && this.mtgDrawnCards.length > 0) {
-      this.mtgDeck = this.mtgDeck.concat(this.mtgDrawnCards);
+      this.testMtgDeck = this.testMtgDeck.concat(this.mtgDrawnCards);
       this.mtgDrawnCards = [];
     }
     if (this.mtgHand && this.mtgHand.length > 0) {
-      this.mtgDeck = this.mtgDeck.concat(this.mtgHand);
+      this.testMtgDeck = this.testMtgDeck.concat(this.mtgHand);
       this.mtgHand = [];
     }
     this.mull = 6;
   }
 
-  public drawCard() {
-    const index = (Math.floor(Math.random() * this.mtgDeck.length));
-    const card = this.mtgDeck.splice((Math.floor(Math.random() * this.mtgDeck.length)), 1);
+  public drawCard(): void {
+    // TODO: implement hypergeometric calculations for each card left in the deck
+    // this.calculateEachCardDrawPercentage();
+    const index = (Math.floor(Math.random() * this.testMtgDeck.length));
+    const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
     this.mtgDrawnCards.push(card[0]);
   }
 
-  public mulligan() {
+  public mulligan(): void {
     if (this.mull === 0) {
       this.mull = 6;
     }
-    this.mtgDeck = this.mtgDeck.concat(this.mtgHand);
+    this.testMtgDeck = this.testMtgDeck.concat(this.mtgHand);
     this.mtgHand = [];
     for (let i = 0; i < this.mull; i++) {
-      const index = (Math.floor(Math.random() * this.mtgDeck.length));
-      const card = this.mtgDeck.splice((Math.floor(Math.random() * this.mtgDeck.length)), 1);
+      const index = (Math.floor(Math.random() * this.testMtgDeck.length));
+      const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
       this.mtgHand.push(card[0]);
     }
     this.mull--;
   }
 
-  // runAHundredThousandTimes() {
-  //   this.landInHand = [];
-  //   for (let i = 0; i < 100000; i++) {
-  //     this.draw100000Hands();
-  //   }
-  // }
-
-  // private draw100000Hands() {
-  //   for (let i = 0; i < 7; i++) {
-  //     let index = (Math.floor(Math.random() * this.mtgDeck.length));
-  //     let card = this.mtgDeck.splice((Math.floor(Math.random() * this.mtgDeck.length)), 1);
-  //     this.mtgHand.push(card[0]);
-  //   }
-  //   let land = this.mtgHand.find(land => land.type === 0 && land.name !== `Gaea's Cradle`);
-  //   if (land && land.type === 0) {
-  //     this.landInHand.push('success');
-  //   }
-  //   for (let i = 0; i < 7; i++) {
-  //     let card = this.mtgHand.shift();
-  //     this.mtgDeck.push(card);
-  //   }
-  // }
+  private calculateEachCardDrawPercentage() {
+    let deckCount: number;
+    if (this.testMtgDeck.length <= 53 && this.testMtgDeck.length !== 0) {
+      deckCount = this.testMtgDeck.length;
+      console.log(deckCount);
+      this.testMtgDeck.forEach(card => {
+        card.percentageToDraw = this.hyperGeometricCalcService.calcHypGeo(deckCount--);
+      });
+    }
+  }
 
 }
