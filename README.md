@@ -1,29 +1,16 @@
-# mtg-app
-Mtg deck simulator and hypergeometric card calculator
+# Welcome to Riffler!
+
+An app to simulate Magic: The Gathering decks.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.1.
 
 # Changing Decks
 
-To change decks edit this folder: 'mtg-app/src/assets/mtg_elves.json'
-Change the card names to be what you want.
-
-To get card images to appear copy the images from 'The Gatherer' and drag them to this folder: 'mtg-app/src/assets/card_images/'
-and point the card image path to there respective card object under 'mtg-app/src/assets/mtg_elves.json'
-
-Card Types:
-
- "type": 0 = Land
- "type": 1 = Creature
- "type": 2 = Sorcery
- "type": 3 = Planeswalker
- "type": 4 = Instant
- "type": 5 = Artifact
- "type": 6 = Enchantment
+To change decks just add your list to the text area and click submit to get a full visual list of your deck. You can then simulate opening hands, draw cards and apply mulligans.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
@@ -31,7 +18,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `npm run build` to build the project. The build artifacts will be stored in the `src/dist/` directory. Use the `-prod` flag for a production build.
 
 ## Running unit tests
 
