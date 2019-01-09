@@ -1,4 +1,4 @@
-## Welcome to Riffler!
+# Welcome to Riffler!
 
 An app to simulate Magic: The Gathering decks.
 
