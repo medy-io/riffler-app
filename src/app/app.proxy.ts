@@ -9,7 +9,7 @@ export class AppProxy {
     API_URL: string = 'https://api.scryfall.com/';
     CARD_URL: string  = 'cards/named?exact=';
     COLLECTION_URL: string = 'cards/collection';
-    DECKLIST_URL: string = this.API_URL + this.CARD_URL;
+    DECKLIST_URL: string = this.API_URL + this.COLLECTION_URL;
 
     constructor(private http: Http) { }
 
@@ -19,8 +19,8 @@ export class AppProxy {
             .map((res: any) => res.json());
     }
 
-    getDeckList(deckListRequest: string): any {
-        return this.http.get(this.DECKLIST_URL + deckListRequest)
-            .map((response: any) => response.json());
+    getDeckList(deckListRequest: any): any {
+        return this.http.post(this.DECKLIST_URL, deckListRequest)
+        .map((res: any) => res.json());
     }
 }

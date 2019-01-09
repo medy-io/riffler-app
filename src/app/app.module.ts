@@ -8,9 +8,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
-import {MatInputModule} from '@angular/material/input';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+import { HyperGeometricCalcService } from './hyper-geometric-calc.service';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -24,6 +27,7 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
+    MatProgressSpinnerModule,
     MatFormFieldModule,
     MatMenuModule,
     MatButtonModule,
@@ -37,7 +41,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     FormsModule
   ],
-  providers: [AppProxy, AppService],
+  providers: [AppProxy, AppService, HyperGeometricCalcService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
