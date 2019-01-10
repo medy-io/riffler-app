@@ -13,12 +13,6 @@ export class AppProxy {
 
     constructor(private http: Http) { }
 
-    // call deck data from JSON file
-    getDeckDataStream(request: any): Observable<Card[]> {
-        return this.http.get('../assets/mtg_elves.json')
-            .map((res: any) => res.json());
-    }
-
     getDeckList(deckListRequest: any): any {
         return this.http.post(this.DECKLIST_URL, deckListRequest)
         .map((res: any) => res.json());
