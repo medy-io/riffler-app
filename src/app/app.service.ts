@@ -10,7 +10,7 @@ export class AppService {
     constructor(private appProxy: AppProxy) { }
 
     // return JSON from proxy to component
-    getDeckData(data: string): any {
+    getDeckData(data: string): Observable<any> {
         return this.appProxy.getDeckList(this.convertToRequest(data));
     }
 

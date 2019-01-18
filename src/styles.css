@@ -8,6 +8,7 @@ body {
 
 .app-wrapper {
     margin: 12px;
+    min-height: 800px;
 }
 
 .hand-card-img {
@@ -18,6 +19,10 @@ body {
     font-family: Roboto;
     font-weight: 400;
     src: url('https://fonts.googleapis.com/css?family=Roboto');
+}
+
+.limitations {
+    font-size: 0.8em;
 }
 
 .mat-tab-label {
@@ -84,8 +89,18 @@ body {
     background-color: #142733 !important;
 }
 
-.deckListHere {
+.tabHeader {
+    padding-top: 1em;
     text-align: center;
+}
+
+#submit {
+    background-color: #142733 ;
+    color: white;
+}
+
+.mat-tab-labels {
+    justify-content: center !important;
 }
 
 .app-header {
