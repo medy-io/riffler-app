@@ -12,6 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 import { HyperGeometricCalcService } from './hyper-geometric-calc.service';
 
@@ -37,6 +39,7 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     MatExpansionModule,
     MatInputModule,
+    MatSnackBarModule,
     HttpModule,
     BrowserModule,
     FormsModule

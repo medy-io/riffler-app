@@ -15,6 +15,6 @@ export class AppProxy {
 
     getDeckList(deckListRequest: any): any {
         return this.http.post(this.DECKLIST_URL, deckListRequest)
-        .map((res: any) => res.json());
+            .map((res: any) => res.json());
     }
 }

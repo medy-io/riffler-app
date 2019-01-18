@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AppService } from './app.service';
 import { HyperGeometricCalcService } from './hyper-geometric-calc.service';
+import { MatSnackBar } from '@angular/material';
 import { Card, DeckProbabilityContext, CardsResponse, CardItem, CardObject } from './app.model';
 
 @Component({
@@ -13,31 +14,53 @@ export class AppComponent {
   title = 'Riffler';
   // drawn cards list
   mtgDrawnCards: any[] = [];
-  // deck list
-  // testtestMtgDeck: Card[] = [];
   // opening hand
   mtgHand: any = [];
+  // users deck
   testMtgDeck: CardObject[] = [];
   // default mulligan number
   mull: number = 6;
-  // experiment deck
-  controlDeck: Card[] = [];
-  // experiment hand
-  controlHand: Card[] = [];
-  deckList: string;
-  textPlaceHolder: string = `1 Cancel \n 1 Ponder \n 1 Unsummon`;
-  deckDataInput: string = '';
+  // user input for  deck data. Initializes a sample deck
+  deckListRequestData: string = `1 Chart a Course
+4 Curious Obsession
+4 Dive Down
+20 Island
+1 Lookout's Dispersal
+4 Merfolk Trickster
+4 Mist-Cloaked Herald
+4 Opt
+4 Siren Stormtamer
+2 Spell Pierce
+4 Tempest Djinn
+4 Warkite Marauder
+4 Wizard's Retort`;
+  // page loading animation
   loadingData: boolean = false;
+  // response errors
+  errorOnCardDataResp: any = 'error';
+  selectedTab: number = 0;
 
   constructor(private appService: AppService,
-    private hyperGeometricCalcService: HyperGeometricCalcService) { }
+    private hyperGeometricCalcService: HyperGeometricCalcService,
+    public matSnackBar: MatSnackBar) { }
 
   getDeckData() {
     this.loadingData = true;
-    this.appService.getDeckData(this.deckDataInput).subscribe(resp => {
-      console.log(resp.data);
-      this.testMtgDeck = resp.data;
-    });
+    setTimeout(() => {
+      this.appService.getDeckData(this.deckListRequestData).subscribe(resp => {
+        console.log(resp.data);
+        this.testMtgDeck = resp.data;
+        this.selectedTab += 1;
+        this.selectedTab > 1 ? this.selectedTab = 0 : this.selectedTab = 1;
+        this.loadingData = false;
+      }, (error) => {
+        this.errorOnCardDataResp = error.status + ' ' + error.statusText + '  |  Check your deck and try again.';
+        this.matSnackBar.open(this.errorOnCardDataResp, 'OK', {
+          duration: 8000,
+        });
+        this.loadingData = false;
+      });
+    }, 50);
   }
 
   // draw your opening hand
