@@ -10,17 +10,19 @@ export class HyperGeometricCalcService {
 
     constructor() { }
 
-    public calcHypGeo(deckCount?: number) {
+    public calcHypGeo(cardCount?: number, deckCount?: number) {
         if (deckCount) {
-          for (let i = 1; i < 5; i++) {
+          console.log(cardCount);
+
+          // for (let i = 1; i < 5; i++) {
             this.deckProbContext = {
-              deckCardCount: 53, // population size, 53
-              subPopSize: i, // sucesses in population, 4 glory bringers, etc.
-              sampleSize: 8, // number of cards we're drawing, ie 1
+              deckCardCount: deckCount, // population size, 53
+              subPopSize: cardCount, // sucesses in population, 4 glory bringers, etc.
+              sampleSize: 1, // number of cards we're drawing, ie 1
               xValue: 1 // odds of drawing at least 1
             };
             return this.compute();
-          }
+          // }
         }
       }
 

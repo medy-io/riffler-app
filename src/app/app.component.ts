@@ -48,8 +48,11 @@ export class AppComponent {
     this.loadingData = true;
     setTimeout(() => {
       this.appService.getDeckData(this.deckListRequestData).subscribe(resp => {
-        console.log(resp.data);
-        this.testMtgDeck = resp.data;
+        this.testMtgDeck = this.assignSomeShitForMath(resp.data);
+        // this.testMtgDeck = this.assignDuplicateCardNumbers(resp.data);
+        // this.testMtgDeck = resp.data;
+
+        
         this.selectedTab += 1;
         this.selectedTab > 1 ? this.selectedTab = 0 : this.selectedTab = 1;
         this.loadingData = false;
@@ -81,7 +84,14 @@ export class AppComponent {
         const index = (Math.floor(Math.random() * this.testMtgDeck.length));
         const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
         this.mtgHand.push(card[0]);
+        this.testMtgDeck.map(value => {
+          if (value.name === card[0].name) {
+            value.numberOfInDeck--;
+          }
+        });
       }
+      console.log(this.testMtgDeck);
+      this.calculateEachCardDrawPercentage();
     }
   }
 
@@ -124,11 +134,49 @@ export class AppComponent {
     let deckCount: number;
     if (this.testMtgDeck.length <= 53 && this.testMtgDeck.length !== 0) {
       deckCount = this.testMtgDeck.length;
-      console.log(deckCount);
       this.testMtgDeck.forEach(card => {
-        card.percentageToDraw = this.hyperGeometricCalcService.calcHypGeo(deckCount--);
+        card.percentageToDraw = this.hyperGeometricCalcService.calcHypGeo(card.numberOfInDeck, deckCount);
       });
     }
   }
+
+  assignDuplicateCardNumbers(deckList) {
+    let list = [];
+    list = deckList;
+    let count: number = 1;
+    list.forEach(card => {
+        if (card && card.name) {
+          list.map(c => {
+            if (c.name === card.name) {
+              card.numberOfInDeck = count++;
+            }
+          });
+        }
+    });
+    return list;
+}
+
+assignSomeShitForMath(data) {
+  const cardArrayNumber: string[] = this.deckListRequestData.match(/\d+/g);
+  let cardArrayName: string[] = this.deckListRequestData.split(/[\d]/);
+  let i = 0;
+  let deck = [];
+  deck = data;
+  cardArrayName = cardArrayName.filter(val => val !== '');
+  cardArrayName.forEach(val => {
+    val.trim();
+  });
+  deck.forEach(cardObj => {
+    if (cardObj && cardObj.name) {
+      let name = cardArrayName[i];
+      if (cardObj.name === name.trim()) {
+        cardObj.numberOfInDeck = +cardArrayNumber[i];
+      } else {
+        i++;
+      }
+    }
+  });
+  return deck;
+}
 
 }

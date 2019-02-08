@@ -87,6 +87,7 @@ export interface CardObject {
     eur: string;
     tix: string;
     percentageToDraw?: number;
+    numberOfInDeck?: number;
 }
 
 export interface ImageUri {
