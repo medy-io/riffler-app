@@ -211,3 +211,16 @@ body {
     width: 100%;
   }
   
+  .chance-header {
+      font-weight: 900;
+      font-size: 0.9em;
+      src: url('https://fonts.googleapis.com/css?family=Roboto');
+      margin-left: -10px;
+  }
+
+  .percent-chance {
+    font-weight: 300;
+    font-size: 1.2em;
+    src: url('https://fonts.googleapis.com/css?family=Roboto');
+    margin-left: -10px;
+  }

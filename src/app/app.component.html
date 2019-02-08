@@ -90,7 +90,8 @@
           <mat-card class="card-card" *ngFor="let deck of testMtgDeck">
             <img *ngIf="deck && deck.image_uris" mat-card-image class="hand-card-img" src={{deck?.image_uris?.normal}}>
             <img *ngIf="deck.card_faces && deck.image_uris === undefined" mat-card-image class="hand-card-img" src={{deck?.card_faces[0]?.image_uris?.normal}}>
-            {{deck.percentageToDraw}}
+            <h5 class="chance-header">Chance to Draw:</h5>
+            <h5 class="percent-chance">{{deck.percentageToDraw | percent: '1.3-5' }}</h5>
           </mat-card>
         </div>
       </div>

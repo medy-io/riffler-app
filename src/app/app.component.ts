@@ -39,6 +39,7 @@ export class AppComponent {
   // response errors
   errorOnCardDataResp: any = 'error';
   selectedTab: number = 0;
+  baseDeckList: CardObject[] = [];
 
   constructor(private appService: AppService,
     private hyperGeometricCalcService: HyperGeometricCalcService,
@@ -48,11 +49,9 @@ export class AppComponent {
     this.loadingData = true;
     setTimeout(() => {
       this.appService.getDeckData(this.deckListRequestData).subscribe(resp => {
-        this.testMtgDeck = this.assignSomeShitForMath(resp.data);
-        // this.testMtgDeck = this.assignDuplicateCardNumbers(resp.data);
-        // this.testMtgDeck = resp.data;
-
-        
+        this.baseDeckList = resp.data;
+        this.testMtgDeck = this.assignAmountOfSiblingCardsInDeck(resp.data);
+        this.calculateEachCardDrawPercentage();
         this.selectedTab += 1;
         this.selectedTab > 1 ? this.selectedTab = 0 : this.selectedTab = 1;
         this.loadingData = false;
@@ -90,8 +89,6 @@ export class AppComponent {
           }
         });
       }
-      console.log(this.testMtgDeck);
-      this.calculateEachCardDrawPercentage();
     }
   }
 
@@ -105,15 +102,17 @@ export class AppComponent {
       this.testMtgDeck = this.testMtgDeck.concat(this.mtgHand);
       this.mtgHand = [];
     }
+    this.testMtgDeck = this.baseDeckList;
     this.mull = 6;
+    this.assignAmountOfSiblingCardsInDeck(this.testMtgDeck);
+    this.calculateEachCardDrawPercentage();
   }
 
   public drawCard(): void {
-    // TODO: implement hypergeometric calculations for each card left in the deck
-    // this.calculateEachCardDrawPercentage();
     const index = (Math.floor(Math.random() * this.testMtgDeck.length));
     const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
     this.mtgDrawnCards.push(card[0]);
+    this.calculateEachCardDrawPercentage();
   }
 
   public mulligan(): void {
@@ -128,55 +127,40 @@ export class AppComponent {
       this.mtgHand.push(card[0]);
     }
     this.mull--;
+    this.calculateEachCardDrawPercentage();
   }
 
   private calculateEachCardDrawPercentage() {
-    let deckCount: number;
-    if (this.testMtgDeck.length <= 53 && this.testMtgDeck.length !== 0) {
-      deckCount = this.testMtgDeck.length;
+    if (this.testMtgDeck.length <= 60 && this.testMtgDeck.length !== 0) {
       this.testMtgDeck.forEach(card => {
-        card.percentageToDraw = this.hyperGeometricCalcService.calcHypGeo(card.numberOfInDeck, deckCount);
+        card.percentageToDraw = +(card.numberOfInDeck / this.testMtgDeck.length).toFixed(6);
       });
     }
   }
 
-  assignDuplicateCardNumbers(deckList) {
-    let list = [];
-    list = deckList;
-    let count: number = 1;
-    list.forEach(card => {
-        if (card && card.name) {
-          list.map(c => {
-            if (c.name === card.name) {
-              card.numberOfInDeck = count++;
-            }
-          });
-        }
+  assignAmountOfSiblingCardsInDeck(data: any[]) {
+    const cardArrayNumber: string[] = this.deckListRequestData.match(/\d+/g);
+    let cardArrayName: string[] = this.deckListRequestData.split(/[\d]/);
+    let i = 0;
+    let deck = [];
+    deck = data;
+    cardArrayName = cardArrayName.filter(val => val !== '');
+    cardArrayName.forEach(val => {
+      val.trim();
     });
-    return list;
-}
-
-assignSomeShitForMath(data) {
-  const cardArrayNumber: string[] = this.deckListRequestData.match(/\d+/g);
-  let cardArrayName: string[] = this.deckListRequestData.split(/[\d]/);
-  let i = 0;
-  let deck = [];
-  deck = data;
-  cardArrayName = cardArrayName.filter(val => val !== '');
-  cardArrayName.forEach(val => {
-    val.trim();
-  });
-  deck.forEach(cardObj => {
-    if (cardObj && cardObj.name) {
-      let name = cardArrayName[i];
-      if (cardObj.name === name.trim()) {
-        cardObj.numberOfInDeck = +cardArrayNumber[i];
-      } else {
-        i++;
+    deck.forEach(cardObj => {
+      if (cardObj && cardObj.name) {
+        let name = cardArrayName[i];
+        console.log(name);
+        if (cardObj.name === name.trim()) {
+          cardObj.numberOfInDeck = +cardArrayNumber[i];
+        } else {
+          i++;
+          cardObj.numberOfInDeck = +cardArrayNumber[i];
+        }
       }
-    }
-  });
-  return deck;
-}
+    });
+    return deck;
+  }
 
 }
