@@ -12,7 +12,7 @@ body {
 }
 
 .hand-card-img {
-    width: 125px;
+    width: 140px !important;
 }
 
 .card-name {
@@ -58,11 +58,16 @@ body {
 
 .card-card {
     /*float: left;*/
-    width: 160px;
+    width: 158px;
     margin: 10px;
+    padding: 10px;
     /*margin-right: 10px;
     margin-left: 10px;*/
     /*background-color: #c4dac3;*/
+}
+
+.normal-card {
+    margin: 15px; 
 }
 
 .creature {
@@ -211,16 +216,60 @@ body {
     width: 100%;
   }
   
-  .chance-header {
+  .chance-header { 
       font-weight: 900;
       font-size: 0.9em;
       src: url('https://fonts.googleapis.com/css?family=Roboto');
-      margin-left: -10px;
   }
 
   .percent-chance {
     font-weight: 300;
     font-size: 1.2em;
     src: url('https://fonts.googleapis.com/css?family=Roboto');
-    margin-left: -10px;
   }
+
+  .mat-card-image {
+      margin-top: 0px !important;
+      margin: 0 0px 16px -14px !important;
+  }
+
+  .mat-card {
+      padding-bottom: 5px !important;
+  }
+
+  /* .mat-card-image {
+    width: calc(100% + 48px);
+    margin: 0 0px 16px 0px;
+} */
+
+
+/*
+ * Percent Ranges:
+ * 0  - 10
+ * 11 - 21
+ * 22 - 32
+ * 33 - 44
+ * 45 - 55
+ * 56 - 66
+ * 
+ *
+ *
+ *
+ */
+  .lowest-chance {
+    /* linear-gradient(red, orange); */
+      background-image: linear-gradient(#FFAB91, white);
+  }
+
+  .low-chance {
+      background-image: linear-gradient(#FFF59D, white);
+  }
+
+  .high-chance {
+    background-image: linear-gradient(#E6EE9C, white);
+  }
+
+  .highest-chance {
+    background-image: linear-gradient(#C5E1A5, white);
+  }
+

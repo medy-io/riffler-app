@@ -90,6 +90,7 @@ export class AppComponent {
         });
       }
     }
+    this.calculateEachCardDrawPercentage();
   }
 
   // clear opening hand and drawn cards
@@ -104,8 +105,7 @@ export class AppComponent {
     }
     this.testMtgDeck = this.baseDeckList;
     this.mull = 6;
-    this.assignAmountOfSiblingCardsInDeck(this.testMtgDeck);
-    this.calculateEachCardDrawPercentage();
+    // this.assignAmountOfSiblingCardsInDeck(this.testMtgDeck);
   }
 
   public drawCard(): void {
@@ -131,7 +131,7 @@ export class AppComponent {
   }
 
   private calculateEachCardDrawPercentage() {
-    if (this.testMtgDeck.length <= 60 && this.testMtgDeck.length !== 0) {
+    if (this.testMtgDeck.length <= 75 && this.testMtgDeck.length !== 0) {
       this.testMtgDeck.forEach(card => {
         card.percentageToDraw = +(card.numberOfInDeck / this.testMtgDeck.length).toFixed(6);
       });
@@ -161,6 +161,27 @@ export class AppComponent {
       }
     });
     return deck;
+  }
+
+  checkCardChance(num: number) {
+    let classChecker;
+    if (num < 0.26) {
+      return classChecker = {
+        'lowest-chance': true
+      };
+    } else if (num > 0.25 && num < 0.51) {
+      return classChecker = {
+        'low-chance': true
+      };
+    } else if (num > 0.50 && num < 0.76) {
+      return classChecker = {
+        'high-chance': true
+      };
+    } else if (num > 0.75 && num < 1.01) {
+      return classChecker = {
+        'highest-chance': true
+      };
+    }    
   }
 
 }
