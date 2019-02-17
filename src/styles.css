@@ -7,8 +7,11 @@ body {
 }
 
 .app-wrapper {
-    margin: 12px;
     min-height: 800px;
+}
+
+.deck-wrapper {
+    margin: 12px;
 }
 
 .hand-card-img {
@@ -25,6 +28,11 @@ body {
     font-size: 0.8em;
 }
 
+.button-top-bottom-padding {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
 .mat-tab-label {
     font-size: 22px;
     font-weight: 500;
@@ -38,6 +46,7 @@ body {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    border-bottom: 1px solid #343a40;
 }
 
 .button-row {
@@ -91,7 +100,12 @@ body {
 }
 
 .toolbar {
-    background-color: #142733 !important;
+    background-color: #ffffff !important;
+}
+
+.tiny-text {
+    font-size: 0.60em;
+    font-weight: bold;
 }
 
 .tabHeader {
@@ -153,7 +167,7 @@ body {
 
 .deck-list-container {
     display: grid;
-    width: 30%;
+    width: 50%;
     margin: 0 auto;
 }
 
@@ -193,10 +207,9 @@ body {
 }
 
 .toolbar-text {
-    color: white;
-    font-size: 24px;
+    font-size: 24px !important;
     font-family: Roboto;
-    font-weight: 900;
+    font-weight: 300 !important;
     src: url('https://fonts.googleapis.com/css?family=Roboto');
     padding-left: 20px;
     padding-right: 10px;
@@ -235,6 +248,11 @@ body {
 
   .mat-card {
       padding-bottom: 5px !important;
+  }
+
+  .submit {
+      height: 3em !important;
+      font-size: 1.25em;
   }
 
   /* .mat-card-image {

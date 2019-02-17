@@ -40,12 +40,16 @@ export class AppComponent {
   errorOnCardDataResp: any = 'error';
   selectedTab: number = 0;
   baseDeckList: CardObject[] = [];
+  disabledReset: boolean = true;
+  disabledOpeningHand: boolean = false;
+  disableMulligan: boolean = false;
 
   constructor(private appService: AppService,
     private hyperGeometricCalcService: HyperGeometricCalcService,
     public matSnackBar: MatSnackBar) { }
 
   getDeckData() {
+    this.selectedTab = 0;
     this.loadingData = true;
     setTimeout(() => {
       this.appService.getDeckData(this.deckListRequestData).subscribe(resp => {
@@ -89,8 +93,11 @@ export class AppComponent {
           }
         });
       }
+      this.calculateEachCardDrawPercentage();
+      this.disabledReset = false;
+      this.disabledOpeningHand = true;
+      this.disableMulligan = false;
     }
-    this.calculateEachCardDrawPercentage();
   }
 
   // clear opening hand and drawn cards
@@ -103,19 +110,28 @@ export class AppComponent {
       this.testMtgDeck = this.testMtgDeck.concat(this.mtgHand);
       this.mtgHand = [];
     }
-    this.testMtgDeck = this.baseDeckList;
     this.mull = 6;
-    // this.assignAmountOfSiblingCardsInDeck(this.testMtgDeck);
+    this.assignAmountOfSiblingCardsInDeck(this.testMtgDeck);
+    this.calculateEachCardDrawPercentage();
+    this.disabledOpeningHand = false;
+    this.disabledReset = true;
   }
 
   public drawCard(): void {
     const index = (Math.floor(Math.random() * this.testMtgDeck.length));
     const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
     this.mtgDrawnCards.push(card[0]);
+    this.testMtgDeck.map(c => {
+      if (c.name === card[0].name) {
+        c.numberOfInDeck--;
+      }
+    });
     this.calculateEachCardDrawPercentage();
+    this.disableMulligan = true;
   }
 
   public mulligan(): void {
+    this.assignAmountOfSiblingCardsInDeck(this.testMtgDeck);
     if (this.mull === 0) {
       this.mull = 6;
     }
@@ -125,6 +141,11 @@ export class AppComponent {
       const index = (Math.floor(Math.random() * this.testMtgDeck.length));
       const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
       this.mtgHand.push(card[0]);
+      this.testMtgDeck.map(value => {
+        if (value.name === card[0].name) {
+          value.numberOfInDeck--;
+        }
+      });
     }
     this.mull--;
     this.calculateEachCardDrawPercentage();
@@ -148,18 +169,30 @@ export class AppComponent {
     cardArrayName.forEach(val => {
       val.trim();
     });
-    deck.forEach(cardObj => {
-      if (cardObj && cardObj.name) {
-        let name = cardArrayName[i];
-        console.log(name);
-        if (cardObj.name === name.trim()) {
-          cardObj.numberOfInDeck = +cardArrayNumber[i];
-        } else {
-          i++;
-          cardObj.numberOfInDeck = +cardArrayNumber[i];
+    console.log('CARD NUMBER');
+    console.log(cardArrayNumber);
+    console.log('CARD NAME');
+    console.log(cardArrayName);
+    cardArrayName.forEach((cardName, index) => {
+      deck.map(val => {
+        if (cardName.trim() === val.name) {
+          val.numberOfInDeck = cardArrayNumber[index];
         }
-      }
+      });
     });
+    console.log(deck);
+    // deck.forEach(cardObj => {
+    //   if (cardObj && cardObj.name) {
+    //     let name = cardArrayName[i];
+    //     console.log(name);
+    //     if (cardObj.name === name.trim()) {
+    //       cardObj.numberOfInDeck = +cardArrayNumber[i];
+    //     } else {
+    //       i++;
+    //       cardObj.numberOfInDeck = +cardArrayNumber[i];
+    //     }
+    //   }
+    // });
     return deck;
   }
 
@@ -181,7 +214,7 @@ export class AppComponent {
       return classChecker = {
         'highest-chance': true
       };
-    }    
+    }
   }
 
 }
