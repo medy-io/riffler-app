@@ -4,7 +4,8 @@
 
 <mat-toolbar class="toolbar">
   <img src="./assets/logo.png" height="35" width="35">
-  <h1 class="toolbar-text">{{title}}</h1><p class="tiny-text">: a deck simulator</p>
+  <h1 class="toolbar-text">{{title}}</h1>
+  <p class="tiny-text">: a deck simulator</p>
 </mat-toolbar>
 
 <!-- <header class="app-header">
@@ -43,24 +44,32 @@
 
     </mat-tab>
 
-      <mat-tab label="Deck List" [disabled]="testMtgDeck.length === 0">
-        <div class="deck-wrapper">
+    <mat-tab label="Deck List" [disabled]="testMtgDeck.length === 0">
+      <div class="deck-wrapper">
         <div *ngIf="testMtgDeck && testMtgDeck.length >= 0">
           <div class="button-row">
             <!-- RESET DECK, HAND AND CARDS DRAWN -->
-            <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" [disabled]="disabledReset" (click)="resetSim()">
+            <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" [disabled]="disabledReset"
+              (click)="resetSim()">
               <span class="mat-button-wrapper">Reset</span>
             </button>
             <!-- DRAW OPENING HAND -->
-            <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" [disabled]="disabledOpeningHand" (click)="drawOpeningHand()">
+            <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" [disabled]="disabledOpeningHand"
+              (click)="drawOpeningHand()">
               <span class="mat-button-wrapper">Draw Opening Hand</span>
             </button>
             <!-- MULLIGAN -->
-            <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" [disabled]="disableMulligan" (click)="mulligan()">
+            <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" [disabled]="disableMulligan"
+              (click)="mulligan()">
               <span class="mat-button-wrapper">Mulligan</span>
             </button>
+            <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" (click)="scryCard()"
+              [disabled]="disableScry">
+              <span class="mat-button-wrapper">Scry</span>
+            </button>
             <!-- DRAW -->
-            <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" (click)="drawCard()" [disabled]="testMtgDeck.length <= 0">
+            <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" (click)="drawCard()"
+              [disabled]="testMtgDeck.length <= 0 || disableDraw">
               <span class="mat-button-wrapper">Draw a Card</span>
             </button>
           </div>
@@ -74,6 +83,15 @@
               <img *ngIf="hand && hand.image_uris" mat-card-image class="hand-card-img" src={{hand?.image_uris?.normal}}>
               <img *ngIf="hand.card_faces && hand.image_uris === undefined" mat-card-image class="hand-card-img" src={{hand?.card_faces[0]?.image_uris?.normal}}>
             </div>
+            <div *ngIf="scriedCard && scriedCard.length > 0" class="scried-card">
+              <h5 class="section-headers">Scried Card</h5>
+              <img mat-card-image class="hand-card-img" src={{scriedCard[0]?.image_uris?.normal}}>
+              <div class="scry-button-wrapper">
+                <button mat-button class="scry-buttons" (click)="scryTop()">Scry Top</button>
+                <button mat-button class="scry-buttons" (click)="scryBottom()">Scry Bottom</button>
+              </div>
+            </div>
+
           </div>
           <div class="hand-row">
             <!-- CARDS DRAWN -->
@@ -96,7 +114,7 @@
           </div>
         </div>
       </div>
-      </mat-tab>
+    </mat-tab>
   </mat-tab-group>
 
 

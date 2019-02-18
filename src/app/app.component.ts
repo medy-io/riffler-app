@@ -43,12 +43,21 @@ export class AppComponent {
   disabledReset: boolean = true;
   disabledOpeningHand: boolean = false;
   disableMulligan: boolean = false;
+  disableScry: boolean = true;
+  disableDraw: boolean = false;
+  scriedCard = [];
 
   constructor(private appService: AppService,
     private hyperGeometricCalcService: HyperGeometricCalcService,
     public matSnackBar: MatSnackBar) { }
 
   getDeckData() {
+    this.mtgHand = [];
+    this.testMtgDeck = [];
+    this.mtgDrawnCards = [];
+    this.disabledReset = true;
+    this.disabledOpeningHand = false;
+    this.disableMulligan = false;
     this.selectedTab = 0;
     this.loadingData = true;
     setTimeout(() => {
@@ -115,19 +124,37 @@ export class AppComponent {
     this.calculateEachCardDrawPercentage();
     this.disabledOpeningHand = false;
     this.disabledReset = true;
+    this.disableScry = true;
+    this.scriedCard = [];
   }
 
   public drawCard(): void {
-    const index = (Math.floor(Math.random() * this.testMtgDeck.length));
-    const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
-    this.mtgDrawnCards.push(card[0]);
-    this.testMtgDeck.map(c => {
-      if (c.name === card[0].name) {
-        c.numberOfInDeck--;
-      }
-    });
+    if (this.scriedCard.length === 0) {
+      const index = (Math.floor(Math.random() * this.testMtgDeck.length));
+      const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
+      this.mtgDrawnCards.push(card[0]);
+      this.testMtgDeck.map(c => {
+        if (c.name === card[0].name) {
+          c.numberOfInDeck--;
+        }
+      });
+    } else if (this.scriedCard && this.scriedCard.length > 0) {
+      const cardIndex = this.testMtgDeck.findIndex(val => val.name === this.scriedCard[0].name);
+      const card = this.testMtgDeck.splice(cardIndex, 1);
+      this.mtgDrawnCards.push(card[0]);
+    }
     this.calculateEachCardDrawPercentage();
     this.disableMulligan = true;
+    // const index = (Math.floor(Math.random() * this.testMtgDeck.length));
+    // const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
+    // this.mtgDrawnCards.push(card[0]);
+    // this.testMtgDeck.map(c => {
+    //   if (c.name === card[0].name) {
+    //     c.numberOfInDeck--;
+    //   }
+    // });
+    // this.calculateEachCardDrawPercentage();
+    // this.disableMulligan = true;
   }
 
   public mulligan(): void {
@@ -149,6 +176,25 @@ export class AppComponent {
     }
     this.mull--;
     this.calculateEachCardDrawPercentage();
+    this.disableScry = false;
+    this.disableDraw = true;
+  }
+
+  public scryCard() {
+    const index = (Math.floor(Math.random() * this.testMtgDeck.length));
+    this.scriedCard.push(this.testMtgDeck[index]);
+    this.disableScry = true;
+  }
+
+  public scryTop() {
+    this.disableDraw = false;
+    this.drawCard();
+    this.scriedCard = [];
+  }
+
+  public scryBottom() {
+    this.disableDraw = false;
+    this.scriedCard = [];
   }
 
   private calculateEachCardDrawPercentage() {
