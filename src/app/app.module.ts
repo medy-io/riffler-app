@@ -14,9 +14,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
-
-import { HyperGeometricCalcService } from './hyper-geometric-calc.service';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppProxy } from './app.proxy';
