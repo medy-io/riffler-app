@@ -1,0 +1,126 @@
+.deck-wrapper {
+  margin: 12px;
+}
+
+.hand-card-img {
+  width: 140px !important;
+}
+
+.button-top-bottom-padding {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.mat-tab-label {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.mat-tab-labels {
+  justify-content: center !important;
+}
+
+.hand-row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #343a40;
+}
+
+.button-row {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.section-headers {
+  font-family: Roboto;
+  font-weight: 800;
+  src: url('https://fonts.googleapis.com/css?family=Roboto');
+}
+
+.card-card {
+  /*float: left;*/
+  width: 158px;
+  margin: 10px;
+  padding: 10px;
+  /*margin-right: 10px;
+    margin-left: 10px;*/
+  /*background-color: #c4dac3;*/
+}
+
+.normal-card {
+  margin: 12px;
+}
+
+/* scried card styles */
+/*------------------- */
+.scry-button-wrapper {
+  float: right;
+  margin-left: 10px;
+  display: grid;
+}
+
+.scry-buttons {
+  justify-self: baseline;
+}
+
+.scried-card {
+  margin-top: -17px;
+  margin-left: 60px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
+.chance-header {
+  font-weight: 900;
+  font-size: 0.9em;
+  src: url('https://fonts.googleapis.com/css?family=Roboto');
+}
+
+.percent-chance {
+  font-weight: 300;
+  font-size: 1.2em;
+  src: url('https://fonts.googleapis.com/css?family=Roboto');
+}
+
+.mat-card-image {
+  margin-top: 0px !important;
+  margin: 0 0px 16px -14px !important;
+}
+
+.mat-card {
+  padding-bottom: 5px !important;
+}
+
+.mat-card-image {
+  margin: 0 0 16px -1px !important;
+}
+
+/* chance indicators */
+.low-chance-1 {
+  background-image: linear-gradient(#FF5722, white);
+}
+
+.low-chance-2 {
+  background-image: linear-gradient(#FF9800, white);
+}
+
+.low-chance-3 {
+  background-image: linear-gradient(#FFC107, white);
+}
+
+.medium-chance-1 {
+  background-image: linear-gradient(#FFEB3B, white);
+}
+
+.medium-chance-2 {
+  background-image: linear-gradient(#CDDC39, white);
+}
+
+.medium-chance-3 {
+  background-image: linear-gradient(#8BC34A, white);
+}
+
+.high-chance {
+  background-image: linear-gradient(#4CAF50, white);
+}

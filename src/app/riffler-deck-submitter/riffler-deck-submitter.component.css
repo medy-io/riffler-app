@@ -1,0 +1,32 @@
+.tabHeader {
+  padding-top: 1em;
+  text-align: center;
+}
+
+.deck-list-container {
+  display: grid;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.deck-list {
+  height: 500px;
+}
+
+.limitations {
+  font-size: 0.8em;
+}
+
+.deck-form {
+  display: inline-grid;
+}
+
+.submit {
+  height: 3em !important;
+  font-size: 1.25em;
+}
+
+#submit {
+  background-color: #142733;
+  color: white;
+}

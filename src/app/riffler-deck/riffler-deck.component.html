@@ -1,0 +1,69 @@
+<div class="deck-wrapper">
+  <div *ngIf="testMtgDeck && testMtgDeck.length >= 0">
+    <div class="button-row">
+      <!-- RESET DECK, HAND AND CARDS DRAWN -->
+      <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" [disabled]="disabledReset"
+        (click)="resetSim()">
+        <span class="mat-button-wrapper">Reset</span>
+      </button>
+      <!-- DRAW OPENING HAND -->
+      <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" [disabled]="disabledOpeningHand"
+        (click)="drawOpeningHand()">
+        <span class="mat-button-wrapper">Draw Opening Hand</span>
+      </button>
+      <!-- MULLIGAN -->
+      <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" [disabled]="disableMulligan"
+        (click)="mulligan()">
+        <span class="mat-button-wrapper">Mulligan</span>
+      </button>
+      <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" (click)="scryCard()"
+        [disabled]="disableScry">
+        <span class="mat-button-wrapper">Scry</span>
+      </button>
+      <!-- DRAW -->
+      <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" (click)="drawCard()"
+        [disabled]="testMtgDeck.length <= 0 || disableDraw">
+        <span class="mat-button-wrapper">Draw a Card</span>
+      </button>
+    </div>
+    <!-- NUMBER OF CARDS IN OPENING HAND -->
+    <h2 class="section-headers">Hand: {{mtgHand.length}}</h2>
+    <!-- NUMBER OF CARDS DRAWN -->
+    <h2 class="section-headers">Cards Drawn: {{mtgDrawnCards.length}}</h2>
+    <div class="hand-row">
+      <!-- CARDS IN OPENING HAND -->
+      <div class="normal-card" *ngFor="let hand of mtgHand">
+        <img *ngIf="hand && hand.image_uris" mat-card-image class="hand-card-img" src={{hand?.image_uris?.normal}}>
+        <img *ngIf="hand.card_faces && hand.image_uris === undefined" mat-card-image class="hand-card-img" src={{hand?.card_faces[0]?.image_uris?.normal}}>
+      </div>
+      <div *ngIf="scriedCard && scriedCard.length > 0" class="scried-card">
+        <h5 class="section-headers">Scried Card</h5>
+        <img mat-card-image class="hand-card-img" src={{scriedCard[0]?.image_uris?.normal}}>
+        <div class="scry-button-wrapper">
+          <button mat-button class="scry-buttons" (click)="scryTop()">Scry Top</button>
+          <button mat-button class="scry-buttons" (click)="scryBottom()">Scry Bottom</button>
+        </div>
+      </div>
+
+    </div>
+    <div class="hand-row">
+      <!-- CARDS DRAWN -->
+      <div class="normal-card" *ngFor="let drawnCard of mtgDrawnCards">
+        <img *ngIf="drawnCard && drawnCard.image_uris" mat-card-image class="hand-card-img" src={{drawnCard?.image_uris?.normal}}>
+        <img *ngIf="drawnCard.card_faces && drawnCard.image_uris === undefined" mat-card-image class="hand-card-img"
+          src={{drawnCard?.card_faces[0]?.image_uris?.normal}}>
+      </div>
+    </div>
+    <!-- NUMBER OF CARDS LEFT IN DECK -->
+    <h2 class="section-headers">Deck: {{testMtgDeck.length}}</h2>
+    <div class="hand-row">
+      <!-- CARDS IN DECK -->
+      <mat-card class="card-card" [ngClass]="checkCardChance(deck.percentageToDraw)" *ngFor="let deck of testMtgDeck">
+        <h5 class="chance-header">Chance to Draw:</h5>
+        <h5 class="percent-chance">{{deck.percentageToDraw | percent: '1.3-5' }}</h5>
+        <img *ngIf="deck && deck.image_uris" mat-card-image class="hand-card-img" src={{deck?.image_uris?.normal}}>
+        <img *ngIf="deck.card_faces && deck.image_uris === undefined" mat-card-image class="hand-card-img" src={{deck?.card_faces[0]?.image_uris?.normal}}>
+      </mat-card>
+    </div>
+  </div>
+</div>

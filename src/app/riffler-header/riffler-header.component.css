@@ -1,0 +1,17 @@
+.toolbar {
+  background-color: #ffffff !important;
+}
+
+.toolbar-text {
+  font-size: 24px !important;
+  font-family: Roboto;
+  font-weight: 100 !important;
+  /* src: url('https://fonts.googleapis.com/css?family=Roboto'); */
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+.tiny-text {
+  font-size: 0.60em;
+  font-weight: bold;
+}

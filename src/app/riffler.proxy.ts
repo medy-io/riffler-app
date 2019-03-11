@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Card, CardsResponse } from './app.model';
+// import { of } from 'rxjs';
+import 'rxjs/add/observable/of';
+import { CardObject } from './riffler-deck/riffler-deck.model';
 
 @Injectable()
-export class AppProxy {
+export class RifflerProxy {
 
     API_URL: string = 'https://api.scryfall.com/';
-    CARD_URL: string  = 'cards/named?exact=';
+    CARD_URL: string = 'cards/named?exact=';
     COLLECTION_URL: string = 'cards/collection';
     DECKLIST_URL: string = this.API_URL + this.COLLECTION_URL;
 

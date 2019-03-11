@@ -75,10 +75,6 @@ body {
     /*background-color: #c4dac3;*/
 }
 
-.normal-card {
-    margin: 15px; 
-}
-
 .scry-button-wrapper {
     float: right;
     margin-left: 10px;
@@ -94,26 +90,6 @@ body {
     margin-left: 60px; 
     margin-right: 15px;
     margin-bottom: 15px;
-}
-
-.creature {
-    background-color: lightgreen;
-}
-
-.sorcery {
-    background-color: lightsalmon;
-}
-
-.land {
-    background-color: lightslategrey;
-}
-
-.hand {
-    background-color: gold;
-}
-
-.planeswalker {
-    background-color: lightblue;
 }
 
 .toolbar {
@@ -137,17 +113,6 @@ body {
 
 .mat-tab-labels {
     justify-content: center !important;
-}
-
-.app-header {
-    background-color: #838383;
-    background-image: url("./assets/frantic-search.jpg");
-    
-    /* background-position-y: 10em; */
-    /* background-size: 300px 100px; */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 .menu-button {
@@ -272,39 +237,6 @@ body {
       font-size: 1.25em;
   }
 
-  /* .mat-card-image {
-    width: calc(100% + 48px);
-    margin: 0 0px 16px 0px;
-} */
 
 
-/*
- * Percent Ranges:
- * 0  - 10
- * 11 - 21
- * 22 - 32
- * 33 - 44
- * 45 - 55
- * 56 - 66
- * 
- *
- *
- *
- */
-  .lowest-chance {
-    /* linear-gradient(red, orange); */
-      background-image: linear-gradient(#FFAB91, white);
-  }
-
-  .low-chance {
-      background-image: linear-gradient(#FFF59D, white);
-  }
-
-  .high-chance {
-    background-image: linear-gradient(#E6EE9C, white);
-  }
-
-  .highest-chance {
-    background-image: linear-gradient(#C5E1A5, white);
-  }
 
