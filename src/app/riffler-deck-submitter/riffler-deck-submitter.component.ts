@@ -51,10 +51,9 @@ export class RifflerDeckSubmitterComponent {
     setTimeout(() => {
       this.deckSubmitterService.getDeckData(this.deckListRequestData);
     }, 50);
-    this.deckSubmitterService.subby$.subscribe(resp => {
+    this.deckSubmitterService.scryFallDeckData$.subscribe(resp => {
       resp.subscribe(val => {
         if (resp.error) {
-          console.log(val.data[0].name);
           this.deck = val.data[0].name;
         }
       }, (error) => {
@@ -63,8 +62,13 @@ export class RifflerDeckSubmitterComponent {
         this.matSnackBar.open(this.errorOnCardDataResp, 'OK', {
           duration: 8000,
         });
-        
       });
-    })
+    }, (error) => {
+      this.isLoadingData.emit(false);
+      this.errorOnCardDataResp = error.status + ' ' + error.statusText + '  |  Check your deck and try again.';
+      this.matSnackBar.open(this.errorOnCardDataResp, 'OK', {
+        duration: 8000,
+      });
+    });
   }
 }

@@ -80,3 +80,15 @@ export interface Legalities {
     duel: string;
     brawl: string;
 }
+
+export interface SwitcherList {
+    value: string;
+    viewValue: string;
+}
+
+export interface PercentByCardType {
+    name: string;
+    numberOfInDeck: number;
+    percentageToDraw: number;
+
+}

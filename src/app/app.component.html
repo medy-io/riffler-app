@@ -10,11 +10,15 @@
   <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedTab">
     <!-- Edit Deck Tab -->
     <mat-tab label="Edit Deck">
-      <riffler-deck-submitter [tab]="selectedTab" (activeTab)="selectedTab" (isLoadingData)="setLoadingScreen($event)"></riffler-deck-submitter>
+      <riffler-deck-submitter [tab]="selectedTab" (activeTab)="selectedTab" (isLoadingData)="setLoadingScreen($event)">
+      </riffler-deck-submitter>
     </mat-tab>
     <!-- Deck List Tab-->
     <mat-tab label="Deck List" [disabled]="disableDeckTab">
       <riffler-deck (stopLoadingData)="loadingData" (enableTab)="enableTab()"></riffler-deck>
     </mat-tab>
+    <!-- <mat-tab label="Metagame" [disabled]="false">
+      <riffler-metagame></riffler-metagame>
+    </mat-tab> -->
   </mat-tab-group>
 </div>

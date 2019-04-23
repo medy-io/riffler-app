@@ -10,19 +10,15 @@ export class DeckSubmitterService {
     constructor(private appProxy: RifflerProxy) { }
     cardObjectArray: any[] = [];
     card: Observable<any>;
-    private subby = new Subject<any>();
-    private hubby = new Subject<any>();
-    private scryFallRetrievalError = new Subject<any>();
-    subby$ = this.subby.asObservable();
-    hubby$ = this.hubby.asObservable();
-    scryFallRetrievalError$ = this.scryFallRetrievalError.asObservable();
+    private scryFallDeckData = new Subject<any>();
+    private userDeckList = new Subject<any>();
+    scryFallDeckData$ = this.scryFallDeckData.asObservable();
+    userDeckList$ = this.userDeckList.asObservable();
 
     // return JSON from proxy to component
     getDeckData(data: string) {
-        // let thing = this.appProxy.getDeckList(this.convertToRequest(data))
-        this.hubby.next(data);
-        this.subby.next(this.appProxy.getDeckList(this.convertToRequest(data)));
-        // this.appProxy.getDeckList(this.convertToRequest(data));
+        this.userDeckList.next(data);
+        this.scryFallDeckData.next(this.appProxy.getDeckList(this.convertToRequest(data)));
     }
 
     convertToRequest(data: string) {
@@ -42,6 +38,7 @@ export class DeckSubmitterService {
                 }
             }
         });
+
         return cardRequest;
     }
 

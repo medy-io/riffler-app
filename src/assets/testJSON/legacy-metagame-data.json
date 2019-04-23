@@ -1,0 +1,511 @@
+{
+  "_id": {
+    "$oid": "5cbdea904360150b5cab56dd"
+  },
+  "deckDataArray": [{
+    "name": "URDelver",
+    "numberOfDeck": {
+      "$numberInt": "53"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.07210884353741497"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Death&Taxes",
+    "numberOfDeck": {
+      "$numberInt": "49"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.06666666666666667"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "EldraziAggro",
+    "numberOfDeck": {
+      "$numberInt": "33"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.044897959183673466"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "GrixisDelver",
+    "numberOfDeck": {
+      "$numberInt": "21"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.02857142857142857"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Maverick",
+    "numberOfDeck": {
+      "$numberInt": "20"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.027210884353741496"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "DragonStompy",
+    "numberOfDeck": {
+      "$numberInt": "19"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.02585034013605442"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Burn",
+    "numberOfDeck": {
+      "$numberInt": "16"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.021768707482993196"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Death'sShadow",
+    "numberOfDeck": {
+      "$numberInt": "12"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0163265306122449"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Goblins",
+    "numberOfDeck": {
+      "$numberInt": "12"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0163265306122449"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "CanadianThreshold",
+    "numberOfDeck": {
+      "$numberInt": "9"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.012244897959183673"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "ArclightPhoenix",
+    "numberOfDeck": {
+      "$numberInt": "9"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.012244897959183673"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Affinity",
+    "numberOfDeck": {
+      "$numberInt": "8"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.010884353741496598"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Pikula",
+    "numberOfDeck": {
+      "$numberInt": "5"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.006802721088435374"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "MUD",
+    "numberOfDeck": {
+      "$numberInt": "5"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.006802721088435374"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Humans",
+    "numberOfDeck": {
+      "$numberInt": "4"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.005442176870748299"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Merfolk",
+    "numberOfDeck": {
+      "$numberInt": "3"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.004081632653061225"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Delver(Other",
+    "numberOfDeck": {
+      "$numberInt": "0"
+    },
+    "percentageOfMetagame": {
+      "$numberInt": "0"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Bant",
+    "numberOfDeck": {
+      "$numberInt": "2"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0027210884353741495"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Jund",
+    "numberOfDeck": {
+      "$numberInt": "2"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0027210884353741495"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Slivers",
+    "numberOfDeck": {
+      "$numberInt": "2"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0027210884353741495"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "ZombiBombardment",
+    "numberOfDeck": {
+      "$numberInt": "1"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0013605442176870747"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "PatriotAggro",
+    "numberOfDeck": {
+      "$numberInt": "1"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0013605442176870747"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Other-Aggro",
+    "numberOfDeck": {
+      "$numberInt": "7"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.009523809523809525"
+    },
+    "archetype": "Aggro"
+  }, {
+    "name": "Stoneblade",
+    "numberOfDeck": {
+      "$numberInt": "59"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.08027210884353742"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "UWxControl",
+    "numberOfDeck": {
+      "$numberInt": "54"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.07346938775510205"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "GrixisControl",
+    "numberOfDeck": {
+      "$numberInt": "41"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.055782312925170066"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "Lands",
+    "numberOfDeck": {
+      "$numberInt": "25"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.034013605442176874"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "Loam",
+    "numberOfDeck": {
+      "$numberInt": "16"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.021768707482993196"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "cControl",
+    "numberOfDeck": {
+      "$numberInt": "9"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.012244897959183673"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "TheAntiquitiesWar",
+    "numberOfDeck": {
+      "$numberInt": "5"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.006802721088435374"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "BUGMidrange",
+    "numberOfDeck": {
+      "$numberInt": "4"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.005442176870748299"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "BUGControl",
+    "numberOfDeck": {
+      "$numberInt": "4"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.005442176870748299"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "TheRock(Junk",
+    "numberOfDeck": {
+      "$numberInt": "0"
+    },
+    "percentageOfMetagame": {
+      "$numberInt": "0"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "Pox",
+    "numberOfDeck": {
+      "$numberInt": "3"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.004081632653061225"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "NicFit",
+    "numberOfDeck": {
+      "$numberInt": "3"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.004081632653061225"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "Landstill",
+    "numberOfDeck": {
+      "$numberInt": "1"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0013605442176870747"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "Other-Control",
+    "numberOfDeck": {
+      "$numberInt": "10"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.013605442176870748"
+    },
+    "archetype": "Control"
+  }, {
+    "name": "ShowandTell",
+    "numberOfDeck": {
+      "$numberInt": "48"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0653061224489796"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "Storm",
+    "numberOfDeck": {
+      "$numberInt": "37"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.050340136054421766"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "DarkDepths",
+    "numberOfDeck": {
+      "$numberInt": "32"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.04353741496598639"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "Reanimator",
+    "numberOfDeck": {
+      "$numberInt": "25"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.034013605442176874"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "Elves",
+    "numberOfDeck": {
+      "$numberInt": "13"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.017687074829931974"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "Infect",
+    "numberOfDeck": {
+      "$numberInt": "11"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.014965986394557823"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "FoodGriffin",
+    "numberOfDeck": {
+      "$numberInt": "10"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.013605442176870748"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "Dredge",
+    "numberOfDeck": {
+      "$numberInt": "7"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.009523809523809525"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "Painter",
+    "numberOfDeck": {
+      "$numberInt": "6"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.00816326530612245"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "CloudpostRamp",
+    "numberOfDeck": {
+      "$numberInt": "5"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.006802721088435374"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "Bomberman",
+    "numberOfDeck": {
+      "$numberInt": "4"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.005442176870748299"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "Doomsday",
+    "numberOfDeck": {
+      "$numberInt": "4"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.005442176870748299"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "Enchantress",
+    "numberOfDeck": {
+      "$numberInt": "2"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0027210884353741495"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "MonoRedSneakAttack",
+    "numberOfDeck": {
+      "$numberInt": "1"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0013605442176870747"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "Belcher",
+    "numberOfDeck": {
+      "$numberInt": "1"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0013605442176870747"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "ShoalInfect",
+    "numberOfDeck": {
+      "$numberInt": "1"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0013605442176870747"
+    },
+    "archetype": "Combo"
+  }, {
+    "name": "Other-Combo",
+    "numberOfDeck": {
+      "$numberInt": "1"
+    },
+    "percentageOfMetagame": {
+      "$numberDouble": "0.0013605442176870747"
+    },
+    "archetype": "Combo"
+  }],
+  "numberOfTotalDecks": {
+    "$numberInt": "735"
+  },
+  "metagameOverview": {
+    "aggro": {
+      "$numberInt": "40"
+    },
+    "control": {
+      "$numberInt": "32"
+    },
+    "combo": {
+      "$numberInt": "28"
+    }
+  },
+  "timestamp": "Mon Apr 22 2019 12:23:44 GMT-0400 (Eastern Daylight Time)",
+  "format": "LE",
+  "__v": {
+    "$numberInt": "0"
+  }
+}

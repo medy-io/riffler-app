@@ -1,18 +1,22 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Pipe, OnInit } from '@angular/core';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/forkJoin'
+import { switchMap, flatMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { DeckSubmitterService } from '../riffler-deck-submitter/riffler-deck-submitter.service';
-import { CardObject } from './riffler-deck.model';
+import { CardObject, SwitcherList, PercentByCardType } from './riffler-deck.model';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'riffler-deck',
   templateUrl: './riffler-deck.component.html',
   styleUrls: ['./riffler-deck.component.css']
 })
-export class RifflerDeckComponent {
+export class RifflerDeckComponent implements OnInit {
   // user input for  deck data. Initializes a sample deck
-  // deckListRequestData: string;
   // page loading animation
   loadingData: boolean = false;
   // response errors
@@ -30,16 +34,31 @@ export class RifflerDeckComponent {
   mull: number = 6;
   userDeckList: any;
   subscription: Subscription;
+  cardTypes: SwitcherList[] = [];
+  cardNames: SwitcherList[] = [];
+  cardTypeList: string[] = [];
+  cardNameList: string[] = [];
+  cardTypePercentLists: PercentByCardType[] = [];
+  cardNamePercentLists: PercentByCardType[] = [];
+  types = new FormControl();
+  names = new FormControl();
+  handsWithDiamondAndTwoLands: number = 0;
+  handsWithDiamondAndOneLand: number = 0;
+  handsWithNoDiamond: number = 0;
+  index: number = 0;
   @Output() stopLoadingData: EventEmitter<boolean> = new EventEmitter();
   @Output() enableTab: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private deckSubmitterService: DeckSubmitterService,
-    public matSnackBar: MatSnackBar) {
-    this.deckSubmitterService.hubby$.subscribe(userDeckList => {
-      this.deckSubmitterService.subby$.subscribe(resp => {
+    public matSnackBar: MatSnackBar) { }
+
+  ngOnInit() {
+    this.initCardTypeSelector();
+    this.deckSubmitterService.userDeckList$.subscribe(userDeckList => {
+      this.deckSubmitterService.scryFallDeckData$.subscribe(resp => {
         resp.subscribe(val => {
-          console.log(val);
           this.userDeckList = userDeckList;
+          this.initCardNameSelector();
           this.testMtgDeck = this.deckSubmitterService.assignAmountOfSiblingCardsInDeck(val.data, userDeckList);
           this.calculateEachCardDrawPercentage();
           this.selectedTab += 1;
@@ -47,19 +66,19 @@ export class RifflerDeckComponent {
           this.stopLoadingData.emit(false);
           this.enableTab.emit(false);
         });
-      });
-    }, (error) => {
-      this.errorOnCardDataResp = error.status + ' - ' + '   Check your deck and try again.';
-      this.matSnackBar.open(this.errorOnCardDataResp, 'OK', {
-        duration: 8000,
-      });
-      this.loadingData = false;
-    });
+      }, (error) => {
+        this.errorOnCardDataResp = error.status + ' - ' + '   Check your deck and try again.';
+        this.matSnackBar.open(this.errorOnCardDataResp, 'OK', {
+          duration: 8000,
+        });
+        this.loadingData = false;
+      });;
+    })
   }
-  
+
   // // draw your opening hand
   public drawOpeningHand(): void {
-    this.resetSim();
+    // this.resetSim();
     if (this.mtgHand && this.mtgHand.length > 0) {
       for (let i = 0; i < 7; i++) {
         const card = this.mtgHand.shift();
@@ -80,13 +99,15 @@ export class RifflerDeckComponent {
         });
       }
       this.calculateEachCardDrawPercentage();
+      this.cardTypePercentLists.length > 0 && this.cardTypeList.length > 0 ? this.findPercentByCardType(this.cardTypeList) : console.log('none');
+      this.cardNamePercentLists.length > 0 && this.cardNameList.length > 0 ? this.findPercentByCardName(this.cardNameList) : console.log('none');
       this.disabledReset = false;
       this.disabledOpeningHand = true;
       this.disableMulligan = false;
     }
   }
 
-  // // clear opening hand and drawn cards
+  // clear opening hand and drawn cards
   public resetSim(): void {
     if (this.mtgDrawnCards && this.mtgDrawnCards.length > 0) {
       this.testMtgDeck = this.testMtgDeck.concat(this.mtgDrawnCards);
@@ -105,6 +126,10 @@ export class RifflerDeckComponent {
     this.disableDraw = false;
     this.disableMulligan = true;
     this.scriedCard = [];
+    this.cardTypePercentLists = [];
+    this.cardNamePercentLists = [];
+    this.cardTypeList = [];
+    this.cardNameList = [];
   }
 
   public drawCard(): void {
@@ -123,6 +148,8 @@ export class RifflerDeckComponent {
       this.mtgDrawnCards.push(card[0]);
     }
     this.calculateEachCardDrawPercentage();
+    this.cardTypePercentLists.length > 0 && this.cardTypeList.length > 0 ? this.findPercentByCardType(this.cardTypeList) : console.log('none');
+    this.cardNamePercentLists.length > 0 && this.cardNameList.length > 0 ? this.findPercentByCardName(this.cardNameList) : console.log('none');
     this.disableMulligan = true;
   }
 
@@ -151,9 +178,6 @@ export class RifflerDeckComponent {
 
   public newMulliganRule() {
     this.deckSubmitterService.assignAmountOfSiblingCardsInDeck(this.testMtgDeck, this.userDeckList);
-    // if (this.mull === 0) {
-    //   this.mull = 6;
-    // }
     this.testMtgDeck = this.testMtgDeck.concat(this.mtgHand);
     this.mtgHand = [];
     for (let i = 0; i < 7; i++) {
@@ -222,12 +246,79 @@ export class RifflerDeckComponent {
     }
   }
 
+  public findPercentByCardType(value) {
+    this.cardTypePercentLists = [];
+    this.cardTypeList = value;
+    value.map(cardType => {
+      let i: number = 1;
+      let cardTypePercent;
+      this.testMtgDeck.map(deckItem => {
+        if (deckItem.type_line.includes(cardType)) {
+          cardTypePercent = {
+            name: cardType,
+            numberOfInDeck: i++,
+            percentageToDraw: 0
+          }
+        }
+      });
+      cardTypePercent.percentageToDraw = +(cardTypePercent.numberOfInDeck / this.testMtgDeck.length).toFixed(6);
+      this.cardTypePercentLists.push(cardTypePercent);
+    });
+  }
+
+  public findPercentByCardName(value) {
+    this.cardNamePercentLists = [];
+    this.cardNameList = value;
+    value.map(cardName => {
+      let i: number = 1;
+      let cardTypePercent;
+      this.testMtgDeck.map(deckItem => {
+        if (deckItem.name === cardName) {
+          cardTypePercent = {
+            name: cardName,
+            numberOfInDeck: i++,
+            percentageToDraw: 0
+          }
+        }
+      });
+      cardTypePercent.percentageToDraw = +(cardTypePercent.numberOfInDeck / this.testMtgDeck.length).toFixed(6);
+      this.cardNamePercentLists.push(cardTypePercent);
+    });
+  }
+
   private calculateEachCardDrawPercentage() {
     if (this.testMtgDeck.length <= 75 && this.testMtgDeck.length !== 0) {
       this.testMtgDeck.forEach(card => {
         card.percentageToDraw = +(card.numberOfInDeck / this.testMtgDeck.length).toFixed(6);
       });
     }
+  }
+
+  private initCardTypeSelector() {
+    this.cardTypes = [
+      { value: 'Land', viewValue: 'Land' },
+      { value: 'Creature', viewValue: 'Creature' },
+      { value: 'Sorcery', viewValue: 'Sorcery' },
+      { value: 'Instant', viewValue: 'Instant' },
+      { value: 'Artifact', viewValue: 'Artifact' },
+      { value: 'Enchantment', viewValue: 'Enchantment' },
+      { value: 'Planeswalker', viewValue: 'Planeswalker' },
+      { value: 'Tribal Sorcery', viewValue: 'Tribal Sorcery' },
+      { value: 'Tribal Instant', viewValue: 'Tribal Instant' },
+      { value: 'Tribal Artifact', viewValue: 'Tribal Artifact' },
+      { value: 'Tribal Enchantment', viewValue: 'Tribal Enchantment' }
+    ]
+  }
+
+  private initCardNameSelector() {
+    let tempCardList = this.userDeckList.replace(/[0-9]/g, '');
+    let cardList = tempCardList.match(/.+\n/g);
+    cardList.map(cardValues => {
+      this.cardNames.push({
+        value: cardValues.trim(),
+        viewValue: cardValues.trim()
+      });
+    });
   }
 
 }

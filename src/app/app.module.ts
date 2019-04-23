@@ -13,12 +13,17 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
 // riffler component imports
 import { RifflerHeaderComponent } from './riffler-header/riffler-header.component';
 import { RifflerDeckSubmitterComponent } from './riffler-deck-submitter/riffler-deck-submitter.component';
+import { RifflerMetagameComponent } from './riffler-metagame/riffler-metagame.component';
 import { RifflerDeckComponent } from './riffler-deck/riffler-deck.component';
 import { RifflerProxy } from './riffler.proxy';
+import { RifflerMetagameProxy } from './riffler-metagame/riffler-metagame.proxy';
 import { DeckSubmitterService } from './riffler-deck-submitter/riffler-deck-submitter.service';
+import { RifflerMetagameService } from './riffler-metagame/riffler-metagame.service';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -31,6 +36,7 @@ import { AppComponent } from './app.component';
     RifflerHeaderComponent,
     RifflerDeckComponent,
     RifflerDeckSubmitterComponent,
+    RifflerMetagameComponent,
     AppComponent
   ],
   imports: [
@@ -46,12 +52,16 @@ import { AppComponent } from './app.component';
     MatExpansionModule,
     MatInputModule,
     MatSnackBarModule,
+    MatTableModule,
+    MatSelectModule,
+
+    ReactiveFormsModule,
     // app modules
     HttpModule,
     BrowserModule,
     FormsModule
   ],
-  providers: [RifflerProxy, DeckSubmitterService],
+  providers: [RifflerProxy, RifflerMetagameProxy, DeckSubmitterService, RifflerMetagameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

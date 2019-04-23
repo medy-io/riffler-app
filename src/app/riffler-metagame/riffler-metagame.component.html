@@ -1,0 +1,59 @@
+<h2 class="tabHeader">Metagame Breakdown</h2>
+<div class="timestamp">Last updated: <b>{{ timestamp }}</b></div>
+<div class="metagame-wrapper">
+  <mat-form-field>
+    <mat-select placeholder="Magic Format">
+      <mat-option *ngFor="let format of formats" [value]="format.value">
+        {{ format.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div>
+    <h4>Archetype Breakdown</h4>
+  </div>
+  <div class="chart-container" *ngIf="chart">
+    <canvas #canvas>{{ chart }}</canvas>
+    <!-- <canvas #controlChart>{{ controlChart }}</canvas>
+    <canvas #comboChart>{{ comboChart }}</canvas> -->
+  </div>
+  <!-- <div *ngIf="aggro_Chart">
+    <canvas #aggroChart>{{ aggro_Chart }}</canvas>
+  </div> -->
+  <div>
+    <h4>Metagame Representation</h4>
+  </div>
+  <div class="example-container mat-elevation-z8">
+    <mat-table #table [dataSource]="metagameData">
+
+      <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let metagameData"> {{metagameData.name}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="numberOfDeck">
+        <mat-header-cell *matHeaderCellDef> Number of Decks </mat-header-cell>
+        <mat-cell *matCellDef="let metagameData"> {{metagameData.numberOfDeck}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="percentageOfMetagame">
+        <mat-header-cell *matHeaderCellDef> Percentage Of Metagame </mat-header-cell>
+        <mat-cell *matCellDef="let metagameData">{{metagameData.percentageOfMetagame | percent: '1.1'}}</mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="archetype">
+        <mat-header-cell *matHeaderCellDef> Archetype </mat-header-cell>
+        <mat-cell *matCellDef="let metagameData">{{metagameData.archetype}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div>

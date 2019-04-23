@@ -1,0 +1,230 @@
+{
+  "numberOfTotalDecks": null,
+  "metagameOverview": {
+    "aggro": "Aggro55 %",
+    "control": "Control23 %",
+    "combo": "Combo22 %"
+  },
+  "timestamp": "2019-04-08T14:38:55.259Z",
+  "deckDataArray": [{
+      "name": "ArclightPhoenix",
+      "numberOfDeck": null
+    },
+    {
+      "name": "Death'sShadow",
+      "numberOfDeck": 67
+    },
+    {
+      "name": "Affinity",
+      "numberOfDeck": 66
+    },
+    {
+      "name": "Humans",
+      "numberOfDeck": 63
+    },
+    {
+      "name": "RedDeckWins",
+      "numberOfDeck": 62
+    },
+    {
+      "name": "TheRock",
+      "numberOfDeck": 60
+    },
+    {
+      "name": "SpiritAggro",
+      "numberOfDeck": 39
+    },
+    {
+      "name": "Hatebear",
+      "numberOfDeck": 23
+    },
+    {
+      "name": "HollowOne",
+      "numberOfDeck": 21
+    },
+    {
+      "name": "EldraziAggro",
+      "numberOfDeck": 17
+    },
+    {
+      "name": "Jund",
+      "numberOfDeck": 17
+    },
+    {
+      "name": "Merfolk",
+      "numberOfDeck": 13
+    },
+    {
+      "name": "AuraHexproof",
+      "numberOfDeck": 12
+    },
+    {
+      "name": "Junk",
+      "numberOfDeck": 11
+    },
+    {
+      "name": "MonoGreenAggro",
+      "numberOfDeck": 4
+    },
+    {
+      "name": "URAggro",
+      "numberOfDeck": 3
+    },
+    {
+      "name": "MartyrLife",
+      "numberOfDeck": 3
+    },
+    {
+      "name": "Zoo",
+      "numberOfDeck": 2
+    },
+    {
+      "name": "RUGAggro",
+      "numberOfDeck": 2
+    },
+    {
+      "name": "Tokens",
+      "numberOfDeck": 2
+    },
+    {
+      "name": "Bant",
+      "numberOfDeck": 1
+    },
+    {
+      "name": "Other-Aggro",
+      "numberOfDeck": 5
+    },
+    {
+      "name": "UrzaTron",
+      "numberOfDeck": 85
+    },
+    {
+      "name": "UWControl",
+      "numberOfDeck": 66
+    },
+    {
+      "name": "LanternControl",
+      "numberOfDeck": 28
+    },
+    {
+      "name": "JeskaiControl",
+      "numberOfDeck": 15
+    },
+    {
+      "name": "URControl",
+      "numberOfDeck": 10
+    },
+    {
+      "name": "MonoRedControl",
+      "numberOfDeck": 10
+    },
+    {
+      "name": "MarduMidrange",
+      "numberOfDeck": 9
+    },
+    {
+      "name": "Smallpox",
+      "numberOfDeck": 7
+    },
+    {
+      "name": "GruulLandLoss",
+      "numberOfDeck": 6
+    },
+    {
+      "name": "GrixisControl",
+      "numberOfDeck": 5
+    },
+    {
+      "name": "NahiriControl",
+      "numberOfDeck": 4
+    },
+    {
+      "name": "UWxMidrange",
+      "numberOfDeck": 4
+    },
+    {
+      "name": "Scapeshift",
+      "numberOfDeck": 3
+    },
+    {
+      "name": "TeachingControl",
+      "numberOfDeck": 3
+    },
+    {
+      "name": "Faeries",
+      "numberOfDeck": 3
+    },
+    {
+      "name": "BUG",
+      "numberOfDeck": 2
+    },
+    {
+      "name": "ToothandNail",
+      "numberOfDeck": 1
+    },
+    {
+      "name": "Other-Control",
+      "numberOfDeck": 9
+    },
+    {
+      "name": "Dredge",
+      "numberOfDeck": 74
+    },
+    {
+      "name": "AmuletTitan",
+      "numberOfDeck": 35
+    },
+    {
+      "name": "Valakut",
+      "numberOfDeck": 33
+    },
+    {
+      "name": "CreaturesToolbox",
+      "numberOfDeck": 18
+    },
+    {
+      "name": "AdNauseam",
+      "numberOfDeck": 17
+    },
+    {
+      "name": "URStorm",
+      "numberOfDeck": 16
+    },
+    {
+      "name": "Elves",
+      "numberOfDeck": 12
+    },
+    {
+      "name": "Infect",
+      "numberOfDeck": 10
+    },
+    {
+      "name": "LivingEnd",
+      "numberOfDeck": 10
+    },
+    {
+      "name": "InstantReanimator",
+      "numberOfDeck": 8
+    },
+    {
+      "name": "JeskaiAscendancy",
+      "numberOfDeck": 3
+    },
+    {
+      "name": "TwinExarch",
+      "numberOfDeck": 3
+    },
+    {
+      "name": "Walks",
+      "numberOfDeck": 2
+    },
+    {
+      "name": "UBMill",
+      "numberOfDeck": 1
+    },
+    {
+      "name": "Other-Combo",
+      "numberOfDeck": 6
+    }
+  ]
+}
