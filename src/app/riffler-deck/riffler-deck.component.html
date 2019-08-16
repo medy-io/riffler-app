@@ -67,14 +67,16 @@
       </div>
       <!-- NUMBER OF CARDS IN OPENING HAND -->
       <h2 class="section-headers">Hand: {{mtgHand.length}}</h2>
+      <h2 *ngIf="mulligan" class="section-headers">Put back: {{mull}} cards</h2>
       <div class="hand-row">
         <!-- CARDS IN OPENING HAND -->
-        <div class="normal-card" *ngFor="let hand of mtgHand">
+        <div class="normal-card" *ngFor="let hand of mtgHand; let i = index">
           <img *ngIf="hand && hand.image_uris" mat-card-image class="hand-card-img" src={{hand?.image_uris?.normal}}>
           <img *ngIf="hand.card_faces && hand.image_uris === undefined" mat-card-image class="hand-card-img"
             src={{hand?.card_faces[0]?.image_uris?.normal}}>
-          <button *ngIf="mulligan" mat-button class="scry-buttons" (click)="bottomCard()">Bottom</button>
+          <button *ngIf="mulligan" mat-button class="scry-buttons" (click)="bottomCard(hand, i)">Bottom</button>
         </div>
+        
         <div *ngIf="scriedCard && scriedCard.length > 0" class="scried-card">
           <h5 class="section-headers">Scried Card</h5>
           <img mat-card-image class="hand-card-img" src={{scriedCard[0]?.image_uris?.normal}}>
