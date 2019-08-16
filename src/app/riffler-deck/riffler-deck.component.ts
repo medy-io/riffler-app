@@ -31,7 +31,7 @@ export class RifflerDeckComponent implements OnInit {
   mtgHand: CardObject[] = [];
   mtgDrawnCards: CardObject[] = [];
   scriedCard = [];
-  mull: number = 6;
+  mull: number = 0;
   userDeckList: any;
   subscription: Subscription;
   cardTypes: SwitcherList[] = [];
@@ -46,6 +46,7 @@ export class RifflerDeckComponent implements OnInit {
   handsWithDiamondAndOneLand: number = 0;
   handsWithNoDiamond: number = 0;
   index: number = 0;
+  mulligan: boolean = false;
   @Output() stopLoadingData: EventEmitter<boolean> = new EventEmitter();
   @Output() enableTab: EventEmitter<boolean> = new EventEmitter();
 
@@ -180,6 +181,7 @@ export class RifflerDeckComponent implements OnInit {
     this.deckSubmitterService.assignAmountOfSiblingCardsInDeck(this.testMtgDeck, this.userDeckList);
     this.testMtgDeck = this.testMtgDeck.concat(this.mtgHand);
     this.mtgHand = [];
+    
     for (let i = 0; i < 7; i++) {
       const index = (Math.floor(Math.random() * this.testMtgDeck.length));
       const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
@@ -190,7 +192,7 @@ export class RifflerDeckComponent implements OnInit {
         }
       });
     }
-    this.mull--;
+    this.mull++;
     this.calculateEachCardDrawPercentage();
     this.disableScry = true;
     this.disableDraw = true;
@@ -211,6 +213,15 @@ export class RifflerDeckComponent implements OnInit {
   public scryBottom() {
     this.disableDraw = false;
     this.scriedCard = [];
+  }
+  
+  public putBackCards(): void {
+    this.mulligan = true;
+  }
+  
+  public bottomCard(val, bottomedCardIndex): void {
+    this.testMtgDeck.push(this.mtgHand[bottomedCardIndex]);
+    this.mtgHand.splice(bottomedCardIndex, 1);
   }
 
   public checkCardChance(num: number) {
