@@ -176,7 +176,7 @@ export class RifflerDeckComponent implements OnInit {
     this.disableDraw = true;
   }
 
-  public newMulliganRule() {
+  public londonMulliganRule() {
     this.deckSubmitterService.assignAmountOfSiblingCardsInDeck(this.testMtgDeck, this.userDeckList);
     this.testMtgDeck = this.testMtgDeck.concat(this.mtgHand);
     this.mtgHand = [];
