@@ -64,6 +64,12 @@
   justify-self: baseline;
 }
 
+.bottom-card-button {
+  background: purple;
+  display: block;
+  margin: 0 auto;
+}
+
 .scried-card {
   margin-top: -17px;
   margin-left: 60px;

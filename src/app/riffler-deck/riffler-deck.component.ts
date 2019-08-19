@@ -47,6 +47,7 @@ export class RifflerDeckComponent implements OnInit {
   handsWithNoDiamond: number = 0;
   index: number = 0;
   mulligan: boolean = false;
+  applyBottomButton: boolean = false;
   @Output() stopLoadingData: EventEmitter<boolean> = new EventEmitter();
   @Output() enableTab: EventEmitter<boolean> = new EventEmitter();
 
@@ -154,34 +155,35 @@ export class RifflerDeckComponent implements OnInit {
     this.disableMulligan = true;
   }
 
-  public mulligan(): void {
-    this.deckSubmitterService.assignAmountOfSiblingCardsInDeck(this.testMtgDeck, this.userDeckList);
-    if (this.mull === 0) {
-      this.mull = 6;
-    }
-    this.testMtgDeck = this.testMtgDeck.concat(this.mtgHand);
-    this.mtgHand = [];
-    for (let i = 0; i < this.mull; i++) {
-      const index = (Math.floor(Math.random() * this.testMtgDeck.length));
-      const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
-      this.mtgHand.push(card[0]);
-      this.testMtgDeck.map(value => {
-        if (value.name === card[0].name) {
-          value.numberOfInDeck--;
-        }
-      });
-    }
-    this.mull--;
-    this.calculateEachCardDrawPercentage();
-    this.disableScry = false;
-    this.disableDraw = true;
-  }
+  // public mulligan(): void {
+  //   this.deckSubmitterService.assignAmountOfSiblingCardsInDeck(this.testMtgDeck, this.userDeckList);
+  //   if (this.mull === 0) {
+  //     this.mull = 6;
+  //   }
+  //   this.testMtgDeck = this.testMtgDeck.concat(this.mtgHand);
+  //   this.mtgHand = [];
+  //   for (let i = 0; i < this.mull; i++) {
+  //     const index = (Math.floor(Math.random() * this.testMtgDeck.length));
+  //     const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
+  //     this.mtgHand.push(card[0]);
+  //     this.testMtgDeck.map(value => {
+  //       if (value.name === card[0].name) {
+  //         value.numberOfInDeck--;
+  //       }
+  //     });
+  //   }
+  //   this.mull--;
+  //   this.calculateEachCardDrawPercentage();
+  //   this.disableScry = false;
+  //   this.disableDraw = true;
+  // }
 
   public londonMulliganRule() {
+    this.mulligan = true;
     this.deckSubmitterService.assignAmountOfSiblingCardsInDeck(this.testMtgDeck, this.userDeckList);
     this.testMtgDeck = this.testMtgDeck.concat(this.mtgHand);
     this.mtgHand = [];
-    
+
     for (let i = 0; i < 7; i++) {
       const index = (Math.floor(Math.random() * this.testMtgDeck.length));
       const card = this.testMtgDeck.splice((Math.floor(Math.random() * this.testMtgDeck.length)), 1);
@@ -214,11 +216,13 @@ export class RifflerDeckComponent implements OnInit {
     this.disableDraw = false;
     this.scriedCard = [];
   }
-  
+
   public putBackCards(): void {
-    this.mulligan = true;
+    this.disableMulligan = true;
+    this.mulligan = false;
+    this.applyBottomButton = true;
   }
-  
+
   public bottomCard(val, bottomedCardIndex): void {
     this.testMtgDeck.push(this.mtgHand[bottomedCardIndex]);
     this.mtgHand.splice(bottomedCardIndex, 1);

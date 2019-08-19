@@ -12,12 +12,12 @@
         <span class="mat-button-wrapper">Draw Opening Hand</span>
       </button>
       <!-- MULLIGAN -->
-      <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" [disabled]="disableMulligan"
-        (click)="londonMulliganRule()">
+      <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding"
+        [disabled]="disableMulligan || mull === 7" (click)="londonMulliganRule()">
         <span class="mat-button-wrapper">Mulligan</span>
       </button>
       <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" (click)="putBackCards()"
-        [disabled]="disableScry">
+        [disabled]="!mulligan">
         <span class="mat-button-wrapper">Keep</span>
       </button>
       <!-- DRAW -->
@@ -74,9 +74,9 @@
           <img *ngIf="hand && hand.image_uris" mat-card-image class="hand-card-img" src={{hand?.image_uris?.normal}}>
           <img *ngIf="hand.card_faces && hand.image_uris === undefined" mat-card-image class="hand-card-img"
             src={{hand?.card_faces[0]?.image_uris?.normal}}>
-          <button *ngIf="mulligan" mat-button class="scry-buttons" (click)="bottomCard(hand, i)">Bottom</button>
+          <button *ngIf="applyBottomButton" mat-button class="bottom-card-button"
+            (click)="bottomCard(hand, i)">Bottom</button>
         </div>
-        
         <div *ngIf="scriedCard && scriedCard.length > 0" class="scried-card">
           <h5 class="section-headers">Scried Card</h5>
           <img mat-card-image class="hand-card-img" src={{scriedCard[0]?.image_uris?.normal}}>
@@ -88,8 +88,8 @@
 
       </div>
       <div class="hand-row">
-      <!-- NUMBER OF CARDS DRAWN -->
-      <h2 class="section-headers">Cards Drawn: {{mtgDrawnCards.length}}</h2>
+        <!-- NUMBER OF CARDS DRAWN -->
+        <h2 class="section-headers">Cards Drawn: {{mtgDrawnCards.length}}</h2>
         <!-- CARDS DRAWN -->
         <div class="normal-card" *ngFor="let drawnCard of mtgDrawnCards">
           <img *ngIf="drawnCard && drawnCard.image_uris" mat-card-image class="hand-card-img"

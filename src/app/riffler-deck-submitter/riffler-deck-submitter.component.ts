@@ -29,10 +29,6 @@ export class RifflerDeckSubmitterComponent {
   // response errors
   errorOnCardDataResp: string;
 
-  disabledReset: boolean = true;
-  disabledOpeningHand: boolean = false;
-  disableMulligan: boolean = false;
-  selectedTab: number = 0;
   deck: string = '';
   @Input() tab: number;
   @Output() activeTab: EventEmitter<number> = new EventEmitter();
@@ -42,10 +38,6 @@ export class RifflerDeckSubmitterComponent {
     public matSnackBar: MatSnackBar) { }
 
   getDeckData() {
-    this.disabledReset = true;
-    this.disabledOpeningHand = false;
-    this.disableMulligan = false;
-    this.selectedTab = 0;
     this.loadingData = true;
     this.isLoadingData.emit(true);
     setTimeout(() => {

@@ -41,6 +41,10 @@ xdescribe('AppComponent', () => {
   let httpClientSpy: { post: jasmine.Spy };
   let service: DeckSubmitterService;
 
+  let mockDeckResponse = {
+
+  };
+
   let usersDeck: string = `1 Chart a Course
   4 Curious Obsession
   4 Dive Down
@@ -148,7 +152,7 @@ xdescribe('AppComponent', () => {
     await app.mulligan();
 
     expect(app.disableScry).toEqual(false);
-    
+
     app.scryCard();
     let card = app.scriedCard[0];
     app.scryTop();
@@ -172,10 +176,10 @@ xdescribe('AppComponent', () => {
     await app.mulligan();
 
     expect(app.disableScry).toEqual(false);
-    
+
     app.scryCard();
     app.scryBottom();
-    
+
     expect(app.disableScry).toEqual(true);
     expect(app.mull).toEqual(5);
     expect(app.disableDraw).toBe(false);
@@ -202,7 +206,7 @@ xdescribe('AppComponent', () => {
     expect(app.mtgDrawnCards.length).toEqual(0);
     expect(app.testMtgDeck.length).toEqual(0);
     expect(app.mtgHand.length).toEqual(0);
-    
+
     await service.getDeckData(usersDeck);
     await app.drawOpeningHand();
     await app.drawCard();

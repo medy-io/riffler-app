@@ -1,4 +1,4 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs/observable/of';
@@ -21,8 +21,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSnackBarModule } from '@angular/material/snack-bar'
-;
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -37,16 +36,92 @@ import { doesNotThrow } from 'assert';
 
 describe('RifflerDeckSubmitterComponent', () => {
 
-  let fixture: ComponentFixture<RifflerDeckSubmitterComponent>;
-  let app: any;
+  // component to test
   let component: RifflerDeckSubmitterComponent;
-  const de: DebugElement = undefined;
+  // test environment for component
+  let fixture: ComponentFixture<RifflerDeckSubmitterComponent>;
+  //
+  let app: any;
+  // rendered HTML
+  let de: DebugElement;
+
+  let deckServiceStub: any;
 
   // let appService: AppService;
   // let spy: jasmine.Spy;
 
   // execute before tests
   beforeEach(async(() => {
+
+    deckServiceStub = {
+      getDeckData: () => of(of(
+        {
+          "identifiers": [
+            { "name": "Chart a Course\n" },
+            { "name": "Curious Obsession\n" },
+            { "name": "Curious Obsession\n" },
+            { "name": "Curious Obsession\n" },
+            { "name": "Curious Obsession\n" },
+            { "name": "Dive Down\n" },
+            { "name": "Dive Down\n" },
+            { "name": "Dive Down\n" },
+            { "name": "Dive Down\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Island\n" },
+            { "name": "Lookout's Dispersal\n" },
+            { "name": "Merfolk Trickster\n" },
+            { "name": "Merfolk Trickster\n" },
+            { "name": "Merfolk Trickster\n" },
+            { "name": "Merfolk Trickster\n" },
+            { "name": "Mist-Cloaked Herald\n" },
+            { "name": "Mist-Cloaked Herald\n" },
+            { "name": "Mist-Cloaked Herald\n" },
+            { "name": "Mist-Cloaked Herald\n" },
+            { "name": "Opt\n" },
+            { "name": "Opt\n" },
+            { "name": "Opt\n" },
+            { "name": "Opt\n" },
+            { "name": "Siren Stormtamer\n" },
+            { "name": "Siren Stormtamer\n" },
+            { "name": "Siren Stormtamer\n" },
+            { "name": "Siren Stormtamer\n" },
+            { "name": "Spell Pierce\n" },
+            { "name": "Spell Pierce\n" },
+            { "name": "Tempest Djinn\n" },
+            { "name": "Tempest Djinn\n" },
+            { "name": "Tempest Djinn\n" },
+            { "name": "Tempest Djinn\n" },
+            { "name": "Warkite Marauder\n" },
+            { "name": "Warkite Marauder\n" },
+            { "name": "Warkite Marauder\n" },
+            { "name": "Warkite Marauder\n" },
+            { "name": "Wizard's Retort" },
+            { "name": "Wizard's Retort" },
+            { "name": "Wizard's Retort" },
+            { "name": "Wizard's Retort" }
+          ]
+        }
+      )),
+    };
 
     TestBed.configureTestingModule({
       imports: [
@@ -56,68 +131,81 @@ describe('RifflerDeckSubmitterComponent', () => {
         ReactiveFormsModule, MatSnackBarModule, MatTableModule, MatSelectModule, HttpModule
       ],
       providers: [
-        DeckSubmitterService, RifflerProxy
+        RifflerProxy, { provide: DeckSubmitterService, useValue: deckServiceStub }
       ],
       declarations: [
         RifflerDeckSubmitterComponent, RifflerDeckComponent, RifflerHeaderComponent, AppComponent
       ],
-    }).compileComponents();
+    })
+      // compile HTML and CSS
+      .compileComponents();
   }));
 
   beforeEach((() => {
     fixture = TestBed.createComponent(RifflerDeckSubmitterComponent);
-    app = fixture.debugElement.componentInstance;
     component = fixture.componentInstance;
+    de = fixture.debugElement;
     // app.deckListRequestData = `1 Delver of Secrets`;
     // app.getDeckData();
   }));
 
-  it('should create the deck submitter', async(() => {
-    expect(app).toBeTruthy();
-  }));
+  it('should create the deck submitter component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should call the getDeckData method and trigger data load', () => {
+    expect(component.loadingData).toBe(false);
+    component.getDeckData();
+    expect(component.loadingData).toBe(true);
+  });
+
+  // it('should call the getDeckData method and get response', fakeAsync(() => {
+  //   component.getDeckData();
+  //   tick(50);
+  //   expect(component.deck.length).toBeGreaterThan(0);
+
+  // }));
 });
 
 // Straight Jasmine testing without Angular's testing support
-fdescribe('Testing DeckSubmitterService with correct response and 404 with RifflerProxy', () => {
-  let httpClientSpy: { post: jasmine.Spy };
-  let service: DeckSubmitterService;
+// describe('Testing DeckSubmitterService with correct response and 404 with RifflerProxy', () => {
+//   let httpClientSpy: { post: jasmine.Spy };
+//   let service: DeckSubmitterService;
 
-  beforeEach(() => {
-    // TODO: spy on other methods too
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
-    service = new DeckSubmitterService(<any>httpClientSpy);
-  });
+//   beforeEach(() => {
+//     // TODO: spy on other methods too
+//     httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
+//     service = new DeckSubmitterService(<any>httpClientSpy);
+//   });
 
-  it('should return expected cards (HttpClient called once)', async () => {
-    expect(service.scryFallDeckData$).toBeDefined();
-    const expectedCard: any[] = [{ name: 'Delver of Secrets' }];
-    httpClientSpy.post.and.returnValue(of(expectedCard));
-    await service.getDeckData('1 Delver of Secrets');
-    service.scryFallDeckData$.subscribe(card => {
-      card.subscribe(val => {
-        console.log('Inside call');
-        console.log(card);
-        expect(val[0].name).toContain('Delver of Secrets'),
-          fail
-      });
-    });
-    expect(httpClientSpy.post.calls.count()).toBe(1, 'one call');
-  });
+  // it('should return expected cards (HttpClient called once)', async () => {
+  //   expect(service.scryFallDeckData$).toBeDefined();
+  //   const expectedCard: any[] = [{ name: 'Delver of Secrets' }];
+  //   httpClientSpy.post.and.returnValue(of(expectedCard));
+  //   await service.getDeckData('1 Delver of Secrets');
+  //   service.scryFallDeckData$.subscribe(card => {
+  //     card.subscribe(val => {
+  //       console.log('Inside call');
+  //       console.log(card);
+  //       expect(val[0].name).toContain('Delver of Secrets'),
+  //         fail
+  //     });
+  //   });
+  //   expect(httpClientSpy.post.calls.count()).toBe(1, 'one call');
+  // });
 
-  it('should return an error when the server returns a 404', async () => {
-    const errorResponse = new HttpErrorResponse({
-      error: 'test 404 error',
-      status: 404, statusText: 'Not Found'
-    });
+  // it('should return an error when the server returns a 404', async () => {
+  //   const errorResponse = new HttpErrorResponse({
+  //     error: 'test 404 error',
+  //     status: 404, statusText: 'Not Found'
+  //   });
 
-    httpClientSpy.post.and.returnValue(of(errorResponse));
-    await service.getDeckData(' 1 D  e  l  ver  o f Se  c  r ets  ');
-    service.scryFallDeckData$.subscribe(card => {
-      card.subscribe(error => {
-        expect(error.message).toContain('test 400 error'),
-          fail
-      });
-    });
-  });
-
-});
+  //   httpClientSpy.post.and.returnValue(of(errorResponse));
+  //   await service.getDeckData(' 1 D  e  l  ver  o f Se  c  r ets  ');
+  //   service.scryFallDeckData$.subscribe(card => {
+  //     card.subscribe(error => {
+  //       expect(error.message).toContain('test 400 error'),
+  //         fail
+  //     });
+  //   });
+  // });
