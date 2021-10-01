@@ -1,8 +1,6 @@
-import { Component, EventEmitter, Output, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import "rxjs/add/operator/map";
-import { MatSnackBar } from "@angular/material";
 import { DeckSubmitterService } from "../riffler-deck-submitter/riffler-deck-submitter.service";
-import { RifflerDeckPresentationService } from "../riffler-deck/riffler-deck-presentation.service";
 import {
   CardObject,
   SwitcherList,
@@ -10,14 +8,9 @@ import {
 } from "./riffler-deck.model";
 import { Subscription } from "rxjs/Subscription";
 import { FormControl } from "@angular/forms";
-import { DomSanitizer } from '@angular/platform-browser';
 
-@Component({
-  selector: "riffler-deck",
-  templateUrl: "./riffler-deck.component.html",
-  styleUrls: ["./riffler-deck.component.css"],
-})
-export class RifflerDeckComponent implements OnInit {
+@Injectable()
+export class RifflerDeckPresentationService {
   // user input for  deck data. Initializes a sample deck
   // page loading animation
   loadingData: boolean = false;
@@ -49,8 +42,6 @@ export class RifflerDeckComponent implements OnInit {
 
   cardHeaderLabel: string = "Chance to Draw:";
 
-  createOpenHandDataLabel: string = "Generate Opening Had";
-
   disabledOpeningHand: boolean = false;
   disableMulligan: boolean = true;
   disableScry: boolean = true;
@@ -76,66 +67,9 @@ export class RifflerDeckComponent implements OnInit {
   index: number = 0;
   mulligan: boolean = false;
   applyBottomButton: boolean = false;
+  bigOlArray: any[] = [];
 
-  name = 'Angular 5';
-  fileUrl;
-  downloadData: string = "";
-
-  @Output() stopLoadingData: EventEmitter<boolean> = new EventEmitter();
-  @Output() enableTab: EventEmitter<boolean> = new EventEmitter();
-
-  constructor(
-    private rifflerDeckPresentationService: RifflerDeckPresentationService,
-    private deckSubmitterService: DeckSubmitterService,
-    public matSnackBar: MatSnackBar,
-    private sanitizer: DomSanitizer
-  ) {}
-
-  ngOnInit() {
-    this.initCardTypeSelector();
-    // TODO: turn this into a declaritive observable
-    this.deckSubmitterService.userDeckList$.subscribe((userDeckList) => {
-      this.deckSubmitterService.scryFallDeckData$.subscribe(
-        (resp) => {
-          resp.subscribe((val) => {
-            this.userDeckList = userDeckList;
-            this.initCardNameSelector();
-            this.testMtgDeck = this.deckSubmitterService.assignAmountOfSiblingCardsInDeck(
-              val.json().data,
-              userDeckList
-            );
-            this.calculateEachCardDrawPercentage();
-            this.selectedTab += 1;
-            this.selectedTab > 1
-              ? (this.selectedTab = 0)
-              : (this.selectedTab = 1);
-            this.stopLoadingData.emit(false);
-            this.enableTab.emit(false);
-          });
-        },
-        (error) => {
-          this.errorOnCardDataResp =
-            error.status + " - " + "   Check your deck and try again.";
-          this.matSnackBar.open(this.errorOnCardDataResp, "OK", {
-            duration: 8000,
-          });
-          this.loadingData = false;
-        }
-      );
-    });
-  }
-
-  // public drawOpeningHand(): void {
-  //   this.rifflerDeckPresentationService.drawOpeningHand();
-  // }
-
-  // public createOpeningHandData(): void {
-  //   this.rifflerDeckPresentationService.generateOpeningHandData();
-  // }
-
-  // private addDeckData(data: any): void {
-  //   this.rifflerDeckPresentationService.addData(data);
-  // }
+  constructor(private deckSubmitterService: DeckSubmitterService) {}
 
   // draw your opening hand
   public drawOpeningHand(): void {
@@ -178,10 +112,6 @@ export class RifflerDeckComponent implements OnInit {
     }
   }
 
-  // private resetSim(): void {
-  //   this.rifflerDeckPresentationService.resetSim();
-  // }
-
   // clear opening hand and drawn cards
   public resetSim(event?): void {
     if (this.mtgDrawnCards && this.mtgDrawnCards.length > 0) {
@@ -209,10 +139,6 @@ export class RifflerDeckComponent implements OnInit {
     this.cardTypeList = [];
     this.cardNameList = [];
   }
-
-  // private drawCard(): void {
-  //   this.rifflerDeckPresentationService.drawCard();
-  // }
 
   public drawCard(): void {
     if (this.scriedCard.length === 0) {
@@ -244,10 +170,6 @@ export class RifflerDeckComponent implements OnInit {
     this.disableMulligan = true;
   }
 
-  // private londonMulliganRule(): void {
-  //   this.rifflerDeckPresentationService.londonMulliganRule();
-  // }
-
   public londonMulliganRule(): void {
     this.mulligan = true;
     this.deckSubmitterService.assignAmountOfSiblingCardsInDeck(
@@ -276,75 +198,17 @@ export class RifflerDeckComponent implements OnInit {
     this.disableDraw = true;
   }
 
-  public createOpeningHandData (): void {
-    let limit: number = 1000;
-    for (let i = 0; i < limit; i++) {
-      // run sim code here
-      this.drawOpeningHand();
-      console.log(this.mtgHand);
-      let list: string = "";
-      this.mtgHand.forEach(val => {
-        list = list + val.name + '_' + val.type_line;
-      })
-      this.downloadData = this.downloadData + list.toString() + "\n" + "\n"
-      this.resetSim();
-    }
-    console.log(this.downloadData);
-  }
-
-  public downloadDataFile(): void {
-    console.log(JSON.stringify(this.downloadData));
-  }
-
-  dynamicDownloadTxt() {
-    this.dyanmicDownloadByHtmlTag({
-      fileName: 'My Report',
-      text: JSON.stringify(this.downloadData)
-    });
-  }
-
-  private setting = {
-    element: {
-      dynamicDownload: null as HTMLElement
-    }
-  }
-
-  public dyanmicDownloadByHtmlTag(arg: any) {
-    if (!this.setting.element.dynamicDownload) {
-      this.setting.element.dynamicDownload = document.createElement('a');
-    }
-    const element = this.setting.element.dynamicDownload;
-    const fileType = arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
-    element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(arg.text)}`);
-    element.setAttribute('download', arg.fileName);
-
-    var event = new MouseEvent("click");
-    element.dispatchEvent(event);
-  }
-
-  // private putBackCards(): void {
-  //   this.rifflerDeckPresentationService.putBackCards();
-  // }
-
   public putBackCards(): void {
     this.disableMulligan = true;
     this.mulligan = false;
     this.applyBottomButton = true;
   }
 
-  // private bottomCard(hand, bottomedCardIndex): void {
-  //   this.rifflerDeckPresentationService.bottomCard(hand, bottomedCardIndex);
-  // }
-
   public bottomCard(hand, bottomedCardIndex): void {
     this.testMtgDeck.push(this.mtgHand[bottomedCardIndex]);
     this.mtgHand.splice(bottomedCardIndex, 1);
     this.disableDraw = false;
   }
-
-  // private findPercentByCardType(value): void {
-  //   this.rifflerDeckPresentationService.findPercentByCardType(value);
-  // }
 
   public findPercentByCardType(value): void {
     this.cardTypePercentLists = [];
@@ -368,10 +232,6 @@ export class RifflerDeckComponent implements OnInit {
     });
   }
 
-  // private findPercentByCardName(value): void {
-  //   this.rifflerDeckPresentationService.findPercentByCardName(value);
-  // }
-
   public findPercentByCardName(value): void {
     this.cardNamePercentLists = [];
     this.cardNameList = value;
@@ -394,10 +254,6 @@ export class RifflerDeckComponent implements OnInit {
     });
   }
 
-  // private calculateEachCardDrawPercentage(): void {
-  //   this.rifflerDeckPresentationService.calculateEachCardDrawPercentage();
-  // }
-
   public calculateEachCardDrawPercentage(): void {
     if (this.testMtgDeck.length <= 75 && this.testMtgDeck.length !== 0) {
       this.testMtgDeck.forEach((card) => {
@@ -407,10 +263,6 @@ export class RifflerDeckComponent implements OnInit {
       });
     }
   }
-
-  // private initCardTypeSelector(): void {
-  //   this.rifflerDeckPresentationService.initCardTypeSelector();
-  // }
 
   public initCardTypeSelector(): void {
     this.cardTypes = [
@@ -428,10 +280,6 @@ export class RifflerDeckComponent implements OnInit {
     ];
   }
 
-  // private initCardNameSelector(): void {
-  //   this.rifflerDeckPresentationService.initCardNameSelector();
-  // }
-
   public initCardNameSelector(): void {
     let tempCardList = this.userDeckList.replace(/[0-9]/g, "");
     let cardList = tempCardList.match(/.+\n/g);
@@ -443,19 +291,33 @@ export class RifflerDeckComponent implements OnInit {
     });
   }
 
-  public scryCard(): void {
+  public addData(data: any): void {
+    this.userDeckList = data;
+  }
+
+  public generateOpeningHandData(): void {
+    let limit: number = 10000;
+    for (let i = 0; i < limit; i++) {
+      // run sim code here
+      this.drawOpeningHand();
+      console.log(this.mtgHand);
+      this.resetSim();
+    }
+  }
+
+  private scryCard(): void {
     const index = Math.floor(Math.random() * this.testMtgDeck.length);
     this.scriedCard.push(this.testMtgDeck[index]);
     this.disableScry = true;
   }
 
-  public scryTop(): void {
+  private scryTop(): void {
     this.disableDraw = false;
     this.drawCard();
     this.scriedCard = [];
   }
 
-  public scryBottom(): void {
+  private scryBottom(): void {
     this.disableDraw = false;
     this.scriedCard = [];
   }

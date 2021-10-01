@@ -1,0 +1,28 @@
+/* chance indicators */
+.low-chance-1 {
+  background-image: linear-gradient(#FF5722, white);
+}
+
+.low-chance-2 {
+  background-image: linear-gradient(#FF9800, white);
+}
+
+.low-chance-3 {
+  background-image: linear-gradient(#FFC107, white);
+}
+
+.medium-chance-1 {
+  background-image: linear-gradient(#FFEB3B, white);
+}
+
+.medium-chance-2 {
+  background-image: linear-gradient(#CDDC39, white);
+}
+
+.medium-chance-3 {
+  background-image: linear-gradient(#8BC34A, white);
+}
+
+.high-chance {
+  background-image: linear-gradient(#4CAF50, white);
+}

@@ -1,0 +1,19 @@
+      <h5>{{filterLabel}}</h5>
+      <mat-form-field>
+        <mat-select placeholder={{selectPlaceholderLabel}} [formControl]="formControlType"
+          (selectionChange)="emitSelectionChange($event)" multiple>
+          <mat-option *ngFor="let card of cardAttrs" [value]="card?.value">{{card?.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div *ngIf="cardPercentLists && cardPercentLists.length > 0" class="hand-row">
+        <div *ngFor="let cardPercentList of cardPercentLists">
+          <mat-card class="card-card">
+            <h5 class="chance-header">{{chanceToDrawLabel}}</h5>
+            <p class="percent-chance">{{cardPercentList?.name }}</p>
+            <p class="percent-chance">{{cardPercentList?.percentageToDraw | percent: '1.3-5' }}</p>
+            <p class="percent-chance">{{cardPercentList?.numberOfInDeck }} in deck</p>
+          </mat-card>
+        </div>
+      </div>

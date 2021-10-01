@@ -1,114 +1,81 @@
-<div class="deck-wrapper">
-  <div *ngIf="testMtgDeck && testMtgDeck.length >= 0">
-    <div class="button-row">
-      <!-- RESET DECK, HAND AND CARDS DRAWN -->
-      <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" [disabled]="disabledReset"
-        (click)="resetSim()">
-        <span class="mat-button-wrapper">Reset</span>
-      </button>
-      <!-- DRAW OPENING HAND -->
-      <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" [disabled]="disabledOpeningHand"
-        (click)="drawOpeningHand()">
-        <span class="mat-button-wrapper">Draw Opening Hand</span>
-      </button>
-      <!-- MULLIGAN -->
-      <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding"
-        [disabled]="disableMulligan || mull === 7" (click)="londonMulliganRule()">
-        <span class="mat-button-wrapper">Mulligan</span>
-      </button>
-      <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" (click)="putBackCards()"
-        [disabled]="!mulligan">
-        <span class="mat-button-wrapper">Keep</span>
-      </button>
-      <!-- DRAW -->
-      <button mat-raised-button="" class="mat-raised-button button-top-bottom-padding" (click)="drawCard()"
-        [disabled]="testMtgDeck.length <= 0 || disableDraw">
-        <span class="mat-button-wrapper">Draw a Card</span>
-      </button>
-      <h5>Find % by card type:</h5>
-      <mat-form-field>
-        <mat-select placeholder="Choose a card type..." [formControl]="types"
-          (selectionChange)="findPercentByCardType($event.value)" multiple>
-          <mat-option *ngFor="let cardType of cardTypes" [value]="cardType.value">{{ cardType.viewValue }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+<section *ngIf="testMtgDeck && testMtgDeck.length >= 0" class="deck-wrapper">
+  <section class="button-row">
+    <!-- RESET DECK, HAND AND CARDS DRAWN -->
+    <riffler-riffler-button [label]="resetButtonLabel" [isDisabled]="disabledReset" (clickEvent)="resetSim()">
+    </riffler-riffler-button>
+    <!-- DRAW OPENING HAND -->
+    <riffler-riffler-button [label]="drawOpeningHandButton" [isDisabled]="disabledOpeningHand"
+      (clickEvent)="drawOpeningHand()">
+    </riffler-riffler-button>
+    <!-- MULLIGAN -->
+    <riffler-riffler-button [label]="mulliganButtonLabel" [isDisabled]="disableMulligan"
+      (clickEvent)="londonMulliganRule()">
+    </riffler-riffler-button>
+    <riffler-riffler-button [label]="keepButtonLabel" [isDisabled]="!mulligan" (clickEvent)="putBackCards()">
+    </riffler-riffler-button>
+    <!-- DRAW -->
+    <riffler-riffler-button [label]="drawCardButtonLabel" [isDisabled]="testMtgDeck.length <= 0 || disableDraw"
+      (clickEvent)="drawCard()">
+    </riffler-riffler-button>
+    <riffler-riffler-button [label]="createOpenHandDataLabel" (clickEvent)="createOpeningHandData()">
+    </riffler-riffler-button>
+    <a (click)="dynamicDownloadTxt()">download Txt</a>
+  </section>
 
-      <div *ngIf="cardTypePercentLists && cardTypePercentLists.length > 0" class="hand-row">
-        <!-- CARDS IN DECK -->
-        <div *ngFor="let cardTypePercentList of cardTypePercentLists">
-          <mat-card class="card-card">
-            <h5 class="chance-header">Chance to Draw:</h5>
-            <p class="percent-chance">{{cardTypePercentList?.name }}</p>
-            <p class="percent-chance">{{cardTypePercentList?.percentageToDraw | percent: '1.3-5' }}</p>
-            <p class="percent-chance">{{cardTypePercentList?.numberOfInDeck }} in deck</p>
-          </mat-card>
-        </div>
-      </div>
+  <section class="filterWrapper">
+    <div class="filter">
+      <riffler-riffler-filter [filterLabel]="filterLabelPercent" [selectPlaceholderLabel]="filterPlaceholder"
+        [formControlType]="types" [cardAttrs]="cardTypes" [cardPercentLists]="cardTypePercentLists"
+        (selectionToEmit)="findPercentByCardType($event.value)"></riffler-riffler-filter>
+    </div>
 
-      <h5>Find % by card name:</h5>
-      <mat-form-field>
-        <mat-select placeholder="Choose a card name..." [formControl]="names"
-          (selectionChange)="findPercentByCardName($event.value)" multiple>
-          <mat-option *ngFor="let cardName of cardNames" [value]="cardName.value">{{ cardName.viewValue }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div *ngIf="cardNamePercentLists && cardNamePercentLists.length > 0" class="hand-row">
-        <!-- CARDS IN DECK -->
-        <div *ngFor="let cardNamePercentList of cardNamePercentLists">
-          <mat-card class="card-card">
-            <h5 class="chance-header">Chance to Draw:</h5>
-            <p class="percent-chance">{{cardNamePercentList?.name }}</p>
-            <p class="percent-chance">{{cardNamePercentList?.percentageToDraw | percent: '1.3-5' }}</p>
-            <p class="percent-chance">{{cardNamePercentList?.numberOfInDeck }} in deck</p>
-          </mat-card>
-        </div>
-      </div>
-      <!-- NUMBER OF CARDS IN OPENING HAND -->
-      <h2 class="section-headers">Hand: {{mtgHand.length}}</h2>
-      <h2 *ngIf="mulligan" class="section-headers">Put back: {{mull}} cards</h2>
-      <div class="hand-row">
-        <!-- CARDS IN OPENING HAND -->
-        <div class="normal-card" *ngFor="let hand of mtgHand; let i = index">
-          <img *ngIf="hand && hand.image_uris" mat-card-image class="hand-card-img" src={{hand?.image_uris?.normal}}>
-          <img *ngIf="hand.card_faces && hand.image_uris === undefined" mat-card-image class="hand-card-img"
-            src={{hand?.card_faces[0]?.image_uris?.normal}}>
-          <button *ngIf="applyBottomButton" mat-button class="bottom-card-button"
-            (click)="bottomCard(hand, i)">Bottom</button>
-        </div>
-        <div *ngIf="scriedCard && scriedCard.length > 0" class="scried-card">
-          <h5 class="section-headers">Scried Card</h5>
-          <img mat-card-image class="hand-card-img" src={{scriedCard[0]?.image_uris?.normal}}>
-          <div class="scry-button-wrapper">
-            <button mat-button class="scry-buttons" (click)="scryTop()">Scry Top</button>
-            <button mat-button class="scry-buttons" (click)="scryBottom()">Scry Bottom</button>
-          </div>
-        </div>
+    <div class="filter">
+      <riffler-riffler-filter [filterLabel]="filterLabelCardName" [selectPlaceholderLabel]="filterPlaceholderName"
+        [formControlType]="names" [cardAttrs]="cardNames" [cardPercentLists]="cardNamePercentLists"
+        (selectionToEmit)="findPercentByCardName($event.value)"></riffler-riffler-filter>
+    </div>
+  </section>
 
-      </div>
-      <div class="hand-row">
-        <!-- NUMBER OF CARDS DRAWN -->
-        <h2 class="section-headers">Cards Drawn: {{mtgDrawnCards.length}}</h2>
-        <!-- CARDS DRAWN -->
-        <div class="normal-card" *ngFor="let drawnCard of mtgDrawnCards">
-          <img *ngIf="drawnCard && drawnCard.image_uris" mat-card-image class="hand-card-img"
-            src={{drawnCard?.image_uris?.normal}}>
-          <img *ngIf="drawnCard.card_faces && drawnCard.image_uris === undefined" mat-card-image class="hand-card-img"
-            src={{drawnCard?.card_faces[0]?.image_uris?.normal}}>
-        </div>
-      </div>
-      <!-- NUMBER OF CARDS LEFT IN DECK -->
-      <h2 class="section-headers">Deck: {{testMtgDeck.length}}</h2>
-      <div class="hand-row">
-        <!-- CARDS IN DECK -->
-        <mat-card class="card-card" [ngClass]="checkCardChance(deck.percentageToDraw)" *ngFor="let deck of testMtgDeck">
-          <h5 class="chance-header">Chance to Draw:</h5>
-          <h5 class="percent-chance">{{deck.percentageToDraw | percent: '1.3-5' }}</h5>
-          <img *ngIf="deck && deck.image_uris" mat-card-image class="hand-card-img" src={{deck?.image_uris?.normal}}>
-          <img *ngIf="deck.card_faces && deck.image_uris === undefined" mat-card-image class="hand-card-img"
-            src={{deck?.card_faces[0]?.image_uris?.normal}}>
-        </mat-card>
+  <section *ngIf="mtgHand && mtgHand.length > 0">
+    <!-- NUMBER OF CARDS IN OPENING HAND -->
+    <riffler-deck-stats [showHide]="showDeckStats" [deckStatLabel]="handStatsLabel" [collection]="mtgHand">
+    </riffler-deck-stats>
+    <h2 *ngIf="mulligan" class="section-headers">Put back: {{mull}} cards</h2>
+    <div class="card-row">
+      <!-- CARDS IN OPENING HAND -->
+      <div class="normal-card" *ngFor="let hand of mtgHand; let i = index">
+        <img *ngIf="hand && hand.image_uris" mat-card-image class="hand-card-img" src={{hand?.image_uris?.normal}}>
+        <img *ngIf="hand.card_faces && hand.image_uris === undefined" mat-card-image class="hand-card-img"
+          src={{hand?.card_faces[0]?.image_uris?.normal}}>
+        <button *ngIf="applyBottomButton" mat-raised-button="" class="mat-raised-button button-top-bottom-padding"
+          (click)="bottomCard(hand, index)">Bottom</button>
       </div>
     </div>
-  </div>
+  </section>
+
+  <section *ngIf="mtgDrawnCards && mtgDrawnCards.length > 0" class="hand-row">
+    <!-- NUMBER OF CARDS DRAWN -->
+    <riffler-deck-stats [showHide]="showDeckStats" [deckStatLabel]="drawnCardsStatsLabel" [collection]="mtgDrawnCards">
+    </riffler-deck-stats>
+    <!-- CARDS DRAWN -->
+
+    <div class="card-row">
+      <div class="normal-card" *ngFor="let drawnCard of mtgDrawnCards">
+        <img *ngIf="drawnCard && drawnCard.image_uris" mat-card-image class="hand-card-img"
+          src={{drawnCard?.image_uris?.normal}}>
+        <img *ngIf="drawnCard.card_faces && drawnCard.image_uris === undefined" mat-card-image class="hand-card-img"
+          src={{drawnCard?.card_faces[0]?.image_uris?.normal}}>
+      </div>
+    </div>
+
+  </section>
+
+  <section *ngIf="testMtgDeck && testMtgDeck.length > 0">
+    <!-- NUMBER OF CARDS LEFT IN DECK -->
+    <riffler-deck-stats [showHide]="showDeckStats" [deckStatLabel]="deckStatsLabel" [collection]="testMtgDeck">
+    </riffler-deck-stats>
+    <!-- CARDS IN DECK -->
+    <riffler-card class="hand-row" [cardHeader]="cardHeaderLabel" [totalDeck]="testMtgDeck"></riffler-card>
+  </section>
+
+</section>

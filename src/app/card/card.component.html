@@ -1,0 +1,7 @@
+<mat-card class="card-card" [ngClass]="checkCardChance(deck?.percentageToDraw)" *ngFor="let deck of totalDeck">
+  <h5 class="chance-header">{{cardHeader}}</h5>
+  <h5 class="percent-chance">{{deck?.percentageToDraw | percent: '1.3-5' }}</h5>
+  <img *ngIf="deck && deck?.image_uris" mat-card-image class="hand-card-img" src={{deck?.image_uris?.normal}}>
+  <img *ngIf="deck?.card_faces && deck?.image_uris === undefined" mat-card-image class="hand-card-img"
+    src={{deck?.card_faces[0]?.image_uris?.normal}}>
+</mat-card>

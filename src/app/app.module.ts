@@ -24,11 +24,16 @@ import { RifflerProxy } from './riffler.proxy';
 import { RifflerMetagameProxy } from './riffler-metagame/riffler-metagame.proxy';
 import { DeckSubmitterService } from './riffler-deck-submitter/riffler-deck-submitter.service';
 import { RifflerMetagameService } from './riffler-metagame/riffler-metagame.service';
+import { RifflerDeckPresentationService } from './riffler-deck/riffler-deck-presentation.service';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // import { AppService } from './app.service';
 import { AppComponent } from './app.component';
+import { RifflerButtonComponent } from './riffler-button/riffler-button.component';
+import { RifflerFilterComponent } from './riffler-filter/riffler-filter.component';
+import { DeckStatsComponent } from './deck-stats/deck-stats.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +42,11 @@ import { AppComponent } from './app.component';
     RifflerDeckComponent,
     RifflerDeckSubmitterComponent,
     RifflerMetagameComponent,
-    AppComponent
+    AppComponent,
+    RifflerButtonComponent,
+    RifflerFilterComponent,
+    DeckStatsComponent,
+    CardComponent
   ],
   imports: [
     // angular material components
@@ -61,7 +70,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     FormsModule
   ],
-  providers: [RifflerProxy, RifflerMetagameProxy, DeckSubmitterService, RifflerMetagameService],
+  providers: [RifflerProxy, RifflerMetagameProxy, DeckSubmitterService, RifflerMetagameService, RifflerDeckPresentationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
