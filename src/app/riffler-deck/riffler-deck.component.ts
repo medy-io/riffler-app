@@ -49,7 +49,9 @@ export class RifflerDeckComponent implements OnInit {
 
   cardHeaderLabel: string = "Chance to Draw:";
 
-  createOpenHandDataLabel: string = "Generate Opening Had";
+  createOpenHandDataLabel: string = "Generate Opening Hand Data";
+
+  analyzeOpenHandData: string = "Analyze Open Hand Data";
 
   disabledOpeningHand: boolean = false;
   disableMulligan: boolean = true;
@@ -79,7 +81,7 @@ export class RifflerDeckComponent implements OnInit {
 
   name = 'Angular 5';
   fileUrl;
-  downloadData: string = "";
+  downloadData: any[] = [];
 
   @Output() stopLoadingData: EventEmitter<boolean> = new EventEmitter();
   @Output() enableTab: EventEmitter<boolean> = new EventEmitter();
@@ -277,23 +279,91 @@ export class RifflerDeckComponent implements OnInit {
   }
 
   public createOpeningHandData (): void {
-    let limit: number = 1000;
+    let limit: number = 10;
     for (let i = 0; i < limit; i++) {
       // run sim code here
       this.drawOpeningHand();
-      console.log(this.mtgHand);
+      console.log(i);
       let list: string = "";
+      let cardType: string = ""
       this.mtgHand.forEach(val => {
-        list = list + val.name + '_' + val.type_line;
+        list = list + val.name + " ";
+        cardType = cardType + val.type_line + "|";
       })
-      this.downloadData = this.downloadData + list.toString() + "\n" + "\n"
+      this.downloadData.push({list: list, type: cardType});
       this.resetSim();
     }
-    console.log(this.downloadData);
+    console.log("DONE!")
   }
 
-  public downloadDataFile(): void {
-    console.log(JSON.stringify(this.downloadData));
+  public analyzeData(): void {
+    let keepScore: number = 0;
+    let MulliganScore: number = 0;
+    this.downloadData.forEach(hand => {
+      if (this.checkForIMS(hand.list) &&
+      this.checkHandQuality(hand.type)) {
+        keepScore++;
+      } else {
+        MulliganScore++;
+      }
+    })
+    console.log({KeepPercentage: keepScore, MullScore: MulliganScore});
+  }
+
+  public checkForIMS(hand: any): boolean {
+    if (hand.includes("Forest") ||
+      hand.includes("Snow-Covered Forest") ||
+      hand.includes("Bayou") ||
+      hand.includes("Savannah") ||
+      hand.includes("Verdant Catacombs") ||
+      hand.includes("Windswept Heath") ||
+      hand.includes("Misty Rainforest") ||
+      hand.includes("Wooded Foothills") ||
+      hand.includes("Once Upon a Time")) {
+        return true;
+      } else {
+        return false;
+      }
+  }
+
+  public checkForCradle(hand: any): boolean {
+    if (hand.includes("Gaea's Cradle") ||
+    hand.includes("Once Upon a Time")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public checkHandQuality(hand: string): boolean {
+    // "Creature — Elf Ranger|Sorcery|Creature — Elf Shaman|Land|Sorcery|Creature — Elf Shaman|Sorcery|"
+    /**
+     *  1. Contains at least 1 Land
+     *  2. Contains no more than 4 Lands
+     *  3. 
+     */
+    let typeCount: any = {land: 0, creature: 0, instant: 0, sorcery: 0};
+    let handArr = hand.split("|");
+    handArr.pop();
+    handArr.forEach(card => {
+      if (card.includes("Land")) {
+        typeCount.land++
+      } else if (card.includes("Creature")) {
+        typeCount.creature++
+      } else if (card.includes("Instant")) {
+        typeCount.instant++
+      } else {
+        typeCount.sorcery++
+      }
+    });
+    if (
+      (typeCount.land < 4 || typeCount.land === 0) && (typeCount.creature >= 1 || typeCount.sorcery >= 1 || typeCount.instant >= 1)) || (typeCount.land < 4 && typeCount.creature >= 1)) {
+      console.log("HAND QUALUTY");
+      console.log(typeCount);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   dynamicDownloadTxt() {

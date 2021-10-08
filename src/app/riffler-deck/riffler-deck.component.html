@@ -19,7 +19,8 @@
     </riffler-riffler-button>
     <riffler-riffler-button [label]="createOpenHandDataLabel" (clickEvent)="createOpeningHandData()">
     </riffler-riffler-button>
-    <a (click)="dynamicDownloadTxt()">download Txt</a>
+    <riffler-riffler-button [label]="analyzeOpenHandData" (clickEvent)="analyzeData()">
+    </riffler-riffler-button>
   </section>
 
   <section class="filterWrapper">
