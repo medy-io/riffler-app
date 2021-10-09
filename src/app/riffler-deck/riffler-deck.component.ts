@@ -279,7 +279,7 @@ export class RifflerDeckComponent implements OnInit {
   }
 
   public createOpeningHandData (): void {
-    let limit: number = 10;
+    let limit: number = 100000;
     for (let i = 0; i < limit; i++) {
       // run sim code here
       this.drawOpeningHand();
@@ -301,7 +301,7 @@ export class RifflerDeckComponent implements OnInit {
     let MulliganScore: number = 0;
     this.downloadData.forEach(hand => {
       if (this.checkForIMS(hand.list) &&
-      this.checkHandQuality(hand.type)) {
+      this.checkHandQuality(hand.type, hand.list)) {
         keepScore++;
       } else {
         MulliganScore++;
@@ -335,31 +335,61 @@ export class RifflerDeckComponent implements OnInit {
     }
   }
 
-  public checkHandQuality(hand: string): boolean {
+  public checkHandQuality(hand: string, list: any): boolean {
     // "Creature — Elf Ranger|Sorcery|Creature — Elf Shaman|Land|Sorcery|Creature — Elf Shaman|Sorcery|"
     /**
      *  1. Contains at least 1 Land
      *  2. Contains no more than 4 Lands
-     *  3. 
+     *  3.
      */
-    let typeCount: any = {land: 0, creature: 0, instant: 0, sorcery: 0};
+    let typeCount: any = {land: 0, creature: 0, instant: 0, sorcery: 0, planeswalker: 0};
     let handArr = hand.split("|");
     handArr.pop();
     handArr.forEach(card => {
       if (card.includes("Land")) {
-        typeCount.land++
+        typeCount.land++;
       } else if (card.includes("Creature")) {
-        typeCount.creature++
+        typeCount.creature++;
       } else if (card.includes("Instant")) {
-        typeCount.instant++
+        typeCount.instant++;
+      } else if (card.includes("Sorcery")) {
+        typeCount.sorcery++;
       } else {
-        typeCount.sorcery++
+        typeCount.planeswalker++;
+      }
+    });
+    // avg cmc
+    if (
+      // at least 3 lands or at least 0 lands and at least 1 OUaT
+      (typeCount.land < 4 || (typeCount.land === 0 && typeCount.instant > 0)) &&
+      // at least 1 creature
+      (typeCount.creature >= 1) || this.containsCertainCards(typeCount.planeswalker ,typeCount.instant, typeCount.sorcery, typeCount.creature, list)) {
+      return true;
+    } else {
+      console.log("SAMPLE HAND");
+      console.log(list);
+      return false;
+    }
+  }
+
+  public containsCertainCards(typePlaneswalker: any, typeInstant: any, typeSorcery: any, typereature: any, list: any): boolean {
+    let zenithCount: number = 0;
+    list.split(" ").forEach(word => {
+      if (word === "Zenith") {
+        zenithCount++;
       }
     });
     if (
-      (typeCount.land < 4 || typeCount.land === 0) && (typeCount.creature >= 1 || typeCount.sorcery >= 1 || typeCount.instant >= 1)) || (typeCount.land < 4 && typeCount.creature >= 1)) {
-      console.log("HAND QUALUTY");
-      console.log(typeCount);
+      (list.includes("Elvish Visionary") && typereature >= 3) ||
+      (list.includes("Green Sun's Zenith") && list.includes("Elvish Visionary") && typereature >= 2 ) ||
+      (zenithCount >= 1 && list.includes("Elvish Visionary") && typereature >= 1) ||
+      (typeSorcery >= 1 && list.includes("Elvish Visionary") && typereature >= 1) ||
+      (typeInstant >= 1 && list.includes("Elvish Visionary") && typereature >= 1) ||
+      (typePlaneswalker > 0 && list.includes("Elvish Visionary") && typereature >= 1) ||
+      (list.includes("Green Sun's Zenith") && typereature >= 2 && !list.includes("Craterhoof Behemoth") && !list.includes("Archon of Valor's Reach") ||
+      (list.includes("Gaea's Cradle") && list.includes("Allosaurus Shepherd") && typereature >= 3))
+      // 2 creature plus shepher plus cradle???
+    ) {
       return true;
     } else {
       return false;
