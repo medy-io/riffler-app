@@ -33,7 +33,7 @@
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
     "iconv": "^2.3.4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ngh": "^0.2.12",
     "request": "^2.88.0",
     "roboto-npm-webfont": "^1.0.1",
